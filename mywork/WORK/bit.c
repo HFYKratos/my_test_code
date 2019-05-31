@@ -1,12 +1,132 @@
-//#define _CRT_SECURE_NO_WARNINGS
-//#include<stdio.h>
-//#include<stdlib.h>
-//#include<math.h>
-//#include<ctype.h>
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<assert.h>
 
+                                           //DAY 12
+////有一个字符数组的内容为:"student a am i",
+////请你将数组的内容改为"i am a student".
+////要求：
+////不能使用库函数。
+////只能开辟有限个空间（空间个数和字符串的长度无关）。
+//int mystrlen(char* str)
+//{
+//	assert(str);
+//	int count = 0;
+//	while (*str)
+//	{
+//		count++;
+//		str++;
+//	}
+//	return count;
+//}
+//void Reverseword(char *left, char *right)
+//{
+//	assert(left);
+//	assert(right);
+//	while (left < right)
+//	{
+//		char tmp = *left;
+//		*left = *right;
+//		*right = tmp;
+//		left++;
+//		right--;
+//	}
+//}
+//void Reversestr(char *str)
+//{
+//	char *tmp = NULL;
+//	char *left = str;
+//	char *right = str + mystrlen(str) - 1;
+//	Reverseword(left, right);
+//	while (*str)
+//	{
+//		tmp = str;
+//		while ((*str != ' ') && (*str != '\0'))
+//		{
+//			str++;
+//		}
+//		char *end = str - 1;
+//		Reverseword(tmp, end);
+//		if (*str == ' ')
+//		{
+//			str++;
+//		}
+//	}
+//}
+//int main()
+//{
+//	char arr[] = { "student a am I" };
+//	Reversestr(arr);
+//	printf("%s\n", arr);
+//	system("pause");
+//	return 0;
+//}
 
+//编程实现： 
+//一组数据中只有一个数字出现了一次。
+//其他所有数字都是成对出现的。
+//请找出这个数字。（使用位运算）
+//int main()
+//{
+//	int i;
+//	int arr[] = { 1,2,3,5,3,2,1 };
+//	int len = sizeof(arr) / sizeof(arr[0]);
+//	for (i = 1; i < len; i++)
+//	{
+//		arr[0] = arr[0] ^ arr[i];
+//	}
+//	printf("%d\n", arr[0]);
+//	system("pause");
+//	return 0;
+//}
 
-												  //DAY 10
+////不使用（a + b） / 2这种方式，求两个数的平均值。
+//int main()
+//{
+//	int a = 20;
+//	int b = 10;
+//	int t;
+//	if (a < b)
+//	{
+//		t = a;
+//		a = b;
+//		b = a;
+//	}
+//	int c = (a - b) / 2 + b;
+//	printf("%u\n", c);
+//	system("pause");
+//	return 0;
+//}
+
+////编写函数： 
+////unsigned int reverse_bit(unsigned int value);
+////这个函数的返回 值value的二进制位模式从左到右翻转后的值。
+//unsigned int reserse_bit(unsigned int value)
+//{
+//	int i = 0;
+//	unsigned int num = 0;
+//	for (i = 0; i < 32; i++)
+//	{
+//		num += ((value >> i) & 1)*pow(2, 31 - i);
+//	}
+//	return num;
+//}
+//
+//int main()
+//{
+//	int value = 0;
+//	int num = 0;
+//	scanf("%d", &value);
+//	num = reserse_bit(value);
+//	printf("%u\n", num);
+//	system("pause");
+//	return 0;
+//}
+
+										     //DAY 10
 //int main()
 //{
 //	int i, j, sz;

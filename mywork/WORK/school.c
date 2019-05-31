@@ -1,12 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-#include<ctype.h>
-#include<time.h>
-#include<string.h>
+//#define _CRT_SECURE_NO_WARNINGS
+//#include<stdio.h>
+//#include<stdlib.h>
+//#include<math.h>
+//#include<ctype.h>
+//#include<time.h>
+//#include<string.h>
 
-//5.23
+                              //5.23
 
 //double mymax(double x, double y)
 //{
