@@ -11,59 +11,59 @@
 ////要求：
 ////不能使用库函数。
 ////只能开辟有限个空间（空间个数和字符串的长度无关）。
-//int mystrlen(char* str)
-//{
-//	assert(str);
-//	int count = 0;
-//	while (*str)
-//	{
-//		count++;
-//		str++;
-//	}
-//	return count;
-//}
-//void Reverseword(char *left, char *right)
-//{
-//	assert(left);
-//	assert(right);
-//	while (left < right)
-//	{
-//		char tmp = *left;
-//		*left = *right;
-//		*right = tmp;
-//		left++;
-//		right--;
-//	}
-//}
-//void Reversestr(char *str)
-//{
-//	char *tmp = NULL;
-//	char *left = str;
-//	char *right = str + mystrlen(str) - 1;
-//	Reverseword(left, right);
-//	while (*str)
-//	{
-//		tmp = str;
-//		while ((*str != ' ') && (*str != '\0'))
-//		{
-//			str++;
-//		}
-//		char *end = str - 1;
-//		Reverseword(tmp, end);
-//		if (*str == ' ')
-//		{
-//			str++;
-//		}
-//	}
-//}
-//int main()
-//{
-//	char arr[] = { "student a am I" };
-//	Reversestr(arr);
-//	printf("%s\n", arr);
-//	system("pause");
-//	return 0;
-//}
+int mystrlen(const char* str)
+{
+	assert(str);
+	int count = 0;
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return count;
+}
+void Reverseword(char *left, char *right)
+{
+	assert(left);
+	assert(right);
+	while (left < right)
+	{
+		char tmp = *left;
+		*left = *right;
+		*right = tmp;
+		left++;
+		right--;
+	}
+}
+void Reversestr(char *str)
+{
+	char *tmp = NULL;
+	char *left = str;
+	char *right = str + mystrlen(str) - 1;
+	Reverseword(left, right);
+	while (*str)
+	{
+		tmp = str;
+		while ((*str != ' ') && (*str != '\0'))
+		{
+			str++;
+		}
+		char *end = str - 1;
+		Reverseword(tmp, end);
+		if (*str == ' ')
+		{
+			str++;
+		}
+	}
+}
+int main()
+{
+	char arr[] = { "student a am I" };
+	Reversestr(arr);
+	printf("%s\n", arr);
+	system("pause");
+	return 0;
+}
 
 //编程实现： 
 //一组数据中只有一个数字出现了一次。
@@ -83,7 +83,7 @@
 //	return 0;
 //}
 
-////不使用（a + b） / 2这种方式，求两个数的平均值。
+//不使用（a + b） / 2这种方式，求两个数的平均值。
 //int main()
 //{
 //	int a = 20;
@@ -96,14 +96,15 @@
 //		b = a;
 //	}
 //	int c = (a - b) / 2 + b;
-//	printf("%u\n", c);
+//  int d = (a & b) + (a ^ b)>>1;
+//	printf("%u\n", d);
 //	system("pause");
 //	return 0;
 //}
 
-////编写函数： 
-////unsigned int reverse_bit(unsigned int value);
-////这个函数的返回 值value的二进制位模式从左到右翻转后的值。
+//编写函数： 
+//unsigned int reverse_bit(unsigned int value);
+//这个函数的返回 值value的二进制位模式从左到右翻转后的值。
 //unsigned int reserse_bit(unsigned int value)
 //{
 //	int i = 0;
@@ -114,7 +115,6 @@
 //	}
 //	return num;
 //}
-//
 //int main()
 //{
 //	int value = 0;
@@ -127,12 +127,13 @@
 //}
 
 										     //DAY 10
+//#define ROW 7
 //int main()
 //{
 //	int i, j, sz;
-//	int arr[5][5] = { 0 };
+//	int arr[ROW][ROW] = { 0 };
 //	sz = sizeof(arr) / sizeof(arr[0]);
-//	for ( i = 0; i <= sz; i++)
+//	for ( i = 0; i < sz; i++)
 //	{
 //		arr[i][0] = 1;
 //		arr[i][i] = 1;
@@ -152,14 +153,13 @@
 //		}
 //		for ( j = 0; j <= i; j++)
 //		{
-//			printf("%d ", arr[i][j]);
+//			printf("%-2d ", arr[i][j]);
 //		}
 //		printf("\n");
 //	}
 //	system("pause");
 //	return 0;
 //}
-//
 //int main()
 //{
 //	int i = 0;
