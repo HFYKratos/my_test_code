@@ -5,8 +5,134 @@
 //#include<ctype.h>
 //#include<time.h>
 //#include<string.h>
+//
+//                                                                //5.30
+////输入一个字符串，检查字符串的内容，如果有空格则删除空格，输出最终的字符串。
+//void delblank(char *s)
+//{
+//	char *p, *b;
+//	b = s;
+//	p = b;
+//	while (*p != '\0')
+//	{
+//		if (*p != ' ')
+//		{
+//			*b++ = *p;
+//		}
+//		p++;
+//	}
+//	*b = '\0';
+//}
+//int main()
+//{
+//	char str[20];
+//	printf("input:\n");
+//	gets(str);
+//	printf("output:\n");
+//	puts(str);
+//	delblank(str);
+//	puts(str);
+//	system("pause");
+//	return 0;
+//}
+//
+////输入一个字符串，判断是否是“回文”
+////（即字符串正读和倒读都是一样的，例如"helleh"就是回文），如果是则输出"yes，否则输出"no"。
+//int mirror(const char *s)
+//{
+//	int len = strlen(s);
+//	int mid = 1;
+//	char* right = s;
+//	char* left = s + len - 1;
+//	while (mid < len)
+//	{
+//		if (*right == *left)
+//		{
+//			*right++;
+//			*left--;
+//		}
+//		else
+//		{
+//			return 0;
+//		}
+//		mid++;
+//		len--;
+//	}
+//	return 1;
+//}
+//int main()
+//{
+//	char str[20];
+//	printf("input:\n");
+//	gets(str);
+//	printf("output:\n");
+//	puts(str);
+//	if (mirror(str))
+//	{
+//		printf("yes\n");
+//	}
+//	else
+//	{
+//		printf("no\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
+//
+//
+////输入10个整数存入数组list（定义和调用void arrayin(int *x, int n) {   }来完成）。
+////输入一个整数a，在list中查找是否有数据a，如果找到则输出相应的下标值，否则输出“not found”。
+////要求定义和调用函数
+////其功能是在数组x中查找元素值a，若找到则返回相应的下标值，否则返回 - 1，参数n表示数组中元素的数量。
+//void arrayin(int *x, int n)
+//{
+//	int i;
+//	for (i = 1; i <= n; i++)
+//		scanf("%d", x++);
+//}
+//void arrayout(int *x, int n)
+//{
+//	int i;
+//	for (i = 1; i <= n; i++)
+//		printf("%d ", *x++);
+//}
+//int search(int *x, int  n, int a)
+//{
+//	int tmp;
+//	while (*x != '/0')
+//	{
+//		if (*x == a)
+//		{
+//			tmp = *x;
+//			return *x;
+//		}
+//		*x++;
+//	}
+//	return -1;
+//}
+//int main()
+//{
+//	int list[10], a, f;
+//	printf("input:\n");
+//	arrayin(list, 10);
+//	printf("output:\n");
+//	arrayout(list, 10);
+//	printf("\nsearch:\n");
+//	scanf("%d", &a);
+//	f = search(list, 10, a);
+//	if (f >= 0)
+//	{
+//		printf("found! %d\n", f);
+//	}
+//	else
+//	{
+//		printf("not found!\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
 
-                              //5.23
+                                                       //5.23
 
 //double mymax(double x, double y)
 //{

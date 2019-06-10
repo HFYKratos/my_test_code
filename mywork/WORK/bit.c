@@ -4,66 +4,159 @@
 #include<math.h>
 #include<ctype.h>
 #include<assert.h>
-
-                                           //DAY 12
-////有一个字符数组的内容为:"student a am i",
-////请你将数组的内容改为"i am a student".
-////要求：
-////不能使用库函数。
-////只能开辟有限个空间（空间个数和字符串的长度无关）。
-int mystrlen(const char* str)
+                                                  //DAY 13
+//输入一个整数数组，实现一个函数， 
+//来调整该数组中数字的顺序使得数组中所有的奇数位于数组的前半部分，
+//所有偶数位于数组的后半部分。
+void change(int arr[], int sz)
 {
-	assert(str);
-	int count = 0;
-	while (*str)
+	int left = 0;
+	int right =sz; 
+	int tmp = 0;
+	while (left <= right)
 	{
-		count++;
-		str++;
-	}
-	return count;
-}
-void Reverseword(char *left, char *right)
-{
-	assert(left);
-	assert(right);
-	while (left < right)
-	{
-		char tmp = *left;
-		*left = *right;
-		*right = tmp;
-		left++;
-		right--;
-	}
-}
-void Reversestr(char *str)
-{
-	char *tmp = NULL;
-	char *left = str;
-	char *right = str + mystrlen(str) - 1;
-	Reverseword(left, right);
-	while (*str)
-	{
-		tmp = str;
-		while ((*str != ' ') && (*str != '\0'))
+		if (arr[left] % 2 == 1 && arr[right] % 2 == 0)
 		{
-			str++;
+			left++;
+			right--;
 		}
-		char *end = str - 1;
-		Reverseword(tmp, end);
-		if (*str == ' ')
+		else if(arr[left] % 2 == 1 && arr[right] % 2 == 1)
 		{
-			str++;
+			right--;
+		}
+		else if (arr[left] % 2 == 0 && arr[right] % 2 == 0)
+		{
+			left++;
+		}
+		else
+		{
+			tmp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = tmp;
 		}
 	}
 }
 int main()
 {
-	char arr[] = { "student a am I" };
-	Reversestr(arr);
-	printf("%s\n", arr);
+	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+	int i = 0;
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	change(arr, sz);
+	for ( i = 0; i < sz;i++)
+	{
+		printf("%d ", arr[i]);
+	}
 	system("pause");
 	return 0;
 }
+
+//有一个二维数组.
+//数组的每行从左到右是递增的，每列从上到下是递增的.
+//在这样的数组中查找一个数字是否存在。
+//时间复杂度小于O(N);
+int yang(const int arr[3][3],int find)
+{
+	int i = 0, j = 2;
+	int tmp = 0;
+	
+	while (1)
+	{
+		tmp = arr[i][j];
+		if (tmp == find)
+		{
+			return 1;
+		}
+		else if (tmp < find && j>=0)
+		{
+			i++;
+		}
+		else if (tmp > find && j>=0)
+		{
+			j--;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}
+int main()
+{
+	int arr[3][3] = { 1,2,3,4,5,6,7,8,9 };
+	int find = 5;
+	int res = yang(arr, find);
+	if (res)
+	{
+		printf("存在\n");
+	}
+	else
+	{
+		printf("不存在\n");
+	}
+	system("pause");
+	return 0;
+}
+
+
+//                                           //DAY 12
+//////有一个字符数组的内容为:"student a am i",
+//////请你将数组的内容改为"i am a student".
+//////要求：
+//////不能使用库函数。
+//////只能开辟有限个空间（空间个数和字符串的长度无关）。
+//int mystrlen(const char* str)
+//{
+//	assert(str);
+//	int count = 0;
+//	while (*str)
+//	{
+//		count++;
+//		str++;
+//	}
+//	return count;
+//}
+//void Reverseword(char *left, char *right)
+//{
+//	assert(left);
+//	assert(right);
+//	while (left < right)
+//	{
+//		char tmp = *left;
+//		*left = *right;
+//		*right = tmp;
+//		left++;
+//		right--;
+//	}
+//}
+//void Reversestr(char *str)
+//{
+//	char *tmp = NULL;
+//	char *left = str;
+//	char *right = str + mystrlen(str) - 1;
+//	Reverseword(left, right);
+//	while (*str)
+//	{
+//		tmp = str;
+//		while ((*str != ' ') && (*str != '\0'))
+//		{
+//			str++;
+//		}
+//		char *end = str - 1;
+//		Reverseword(tmp, end);
+//		if (*str == ' ')
+//		{
+//			str++;
+//		}
+//	}
+//}
+//int main()
+//{
+//	char arr[] = { "student a am I" };
+//	Reversestr(arr);
+//	printf("%s\n", arr);
+//	system("pause");
+//	return 0;
+//}
 
 //编程实现： 
 //一组数据中只有一个数字出现了一次。
