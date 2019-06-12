@@ -6,36 +6,99 @@
 #include<time.h>
 #include<string.h>
 //                                                                  6.6
-//int main() 
+//编写C语言程序把小写字母a---z写到文件“az.txt”中，同时在显示屏上显示出来。
+//int main()
 //{
-//	FILE  *fp = fopen("az.txt", "w+");
+//	FILE *fp = fopen("az.txt", "w+");
 //	int i = 0;
+//	char arr[255] = { 0 };
 //	for ( i = 0; i < 26; i++)
 //	{
-//		fputc(i + 'a', fp);
+//		arr[i] = 'a' + i;
 //	}
-//	
-//	//for ( i = 0; i < 26; i++)
-//	//{
-//	//	putchar(fgetc(fp));
-//	//}
-//	for (i = 0; i < 26; i++)
-//	{
-//		fputc(i + 'A', fp);
-//	}
-//	rewind(fp);
-//	for (i = 26; i < 52; i++)
-//	{
-//		putchar(fgetc(fp));
-//	}
-//	
+//	fputs(arr, fp);
 //	fclose(fp);
+//	for ( i = 0; i < 26; i++)
+//	{
+//		printf("%c ", arr[i]);
+//	}
 //	system("pause");
 //	return 0;
 //}
-
-
-
+//编写C语言程序把大写字母A---Z追加写到文件“az.txt”中，同时在显示屏上显示出来。
+//int main()
+//{
+//	FILE *fp = fopen("az.txt", "a+");
+//	int i = 0;
+//	char arr[255] = { 0 };
+//	for (i = 0; i < 26; i++)
+//	{
+//		arr[i] = 'A' + i;
+//	}
+//	fputs(arr, fp);
+//	fclose(fp);
+//	for (i = 0; i < 26; i++)
+//	{
+//		printf("%c ", arr[i]);
+//	}
+//	system("pause");
+//	return 0;
+//}
+//编写C语言程序读取文件“az.txt”中的内容显示在屏幕上。
+//int main() 
+//{
+//	FILE *fp;
+//	char buffer[256];
+//	if (fp = fopen("az.txt", "r")) 
+//	{
+//		while (!feof(fp))
+//		{
+//			fgets(buffer, 255, fp);
+//			printf("%s\n", buffer);
+//		}
+//		fclose(fp);
+//	}
+//	else
+//	{
+//		printf("无法打开文本文件读取。\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
+//分别计算半径从1到10的圆的周长和面积，把结果保存到二进制文件“circle”中，同时在显示屏上显示出来。
+//int main()
+//{
+//	FILE *fp = fopen("circle", "wb+");
+//	double l[10] = { 0 };
+//	double s[10] = { 0 };
+//	int i = 0;
+//	for ( i = 0; i < 10; i++)
+//	{
+//		l[i] = 3.14 * 2 * (i + 1);
+//		s[i] = 3.14 * (i + 1) *(i + 1);
+//	}
+//	fputs(l, fp);
+//	fputs(s, fp);
+//	system("pause");
+//	return 0;
+//}
+//定义一个结构体，表示一个学生的信息：学号，姓名，性别，出生日期，5门课的成绩。
+//在一个文本文件info.txt里输入10个学生的信息。
+//通过程序读取文件的学生信息，并计算每个学生的总分，把学生信息和相应的总分信息保存在文件“stu.txt”中，同时在显示屏上显示出来。
+//把输入、输出和计算总分的功能单独编写函数来完成。
+int main()
+{
+	struct student
+	{
+		char id[10];
+		char name[20];
+		char sex[10];
+		char birth[10];
+		int soure[5];
+	}stu = {"001","Kratos","male","19991108",80,80,80,80,80};
+	system("pause");
+	return 0;
+}
 
 //                                                                  5.30
 ////输入一个字符串，检查字符串的内容，如果有空格则删除空格，输出最终的字符串。

@@ -9,63 +9,63 @@
 //实现一个函数，可以左旋字符串中的k个字符。
 //ABCD左旋一个字符得到BCDA
 //ABCD左旋两个字符得到CDAB
-void left_move(char *str, int k)
-{
-	int i = 0;
-	char tmp;
-	int len = strlen(str);
-	for ( i = 0; i < k; i++)
-	{
-		int j = 0;
-		for ( j = 0; j < len; j++)
-		{
-			if (*(str + j + 1))
-			{
-				tmp = *(str + j);
-				*(str + j) = *(str + 1 + j);
-				*(str + 1 + j) = tmp;
-			}
-
-		}
-	}
-}
+//void left_move(char *str, int k)
+//{
+//	int i = 0;
+//	char tmp;
+//	int len = strlen(str);
+//	for ( i = 0; i < k; i++)
+//	{
+//		int j = 0;
+//		for ( j = 0; j < len; j++)
+//		{
+//			if (*(str + j + 1))
+//			{
+//				tmp = *(str + j);
+//				*(str + j) = *(str + 1 + j);
+//				*(str + 1 + j) = tmp;
+//			}
+//
+//		}
+//	}
+//}
 //判断一个字符串是否为另外一个字符串旋转之后的字符串。
 //例如：给定s1 = AABCD和s2 = BCDAA，返回1
 //给定s1 = abcd和s2 = ACBD，返回0
-int is_left_move(char *arr, const char *p)
-{
-	int i = 0;
-	int len = strlen(arr);
-	for ( i = 0; i < len; i++)
-	{
-		left_move(arr, 1);
-		if (strcmp(arr,p) == 0)
-		{
-			return 1;
-		}
-	}
-	if (strcmp(arr, p) != 1)
-	{
-		return 0;
-	}
-}
-int main()
-{
-	char s1[] = "AABCD";
-	char s2[] = "BCDAA";
-	char s3[] = "abcde";
-	int ret = is_left_move(s1, s2);
-	if (ret == 1)
-	{
-		printf("YES!\n");
-	}
-	else
-	{
-		printf("NO!\n");
-	}
-	system("pause");
-	return 0;
-}
+//int is_left_move(char *arr, const char *p)
+//{
+//	int i = 0;
+//	int len = strlen(arr);
+//	for ( i = 0; i < len; i++)
+//	{
+//		left_move(arr, 1);
+//		if (strcmp(arr,p) == 0)
+//		{
+//			return 1;
+//		}
+//	}
+//	if (strcmp(arr, p) != 1)
+//	{
+//		return 0;
+//	}
+//}
+//int main()
+//{
+//	char s1[] = "AABCD";
+//	char s2[] = "BCDAA";
+//	char s3[] = "abcde";
+//	int ret = is_left_move(s1, s2);
+//	if (ret == 1)
+//	{
+//		printf("YES!\n");
+//	}
+//	else
+//	{
+//		printf("NO!\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
 
 //                                                  DAY 13
 //输入一个整数数组，实现一个函数， 
