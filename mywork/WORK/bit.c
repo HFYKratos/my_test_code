@@ -4,98 +4,161 @@
 #include<math.h>
 #include<ctype.h>
 #include<assert.h>
-                                                  //DAY 13
-//输入一个整数数组，实现一个函数， 
-//来调整该数组中数字的顺序使得数组中所有的奇数位于数组的前半部分，
-//所有偶数位于数组的后半部分。
-void change(int arr[], int sz)
+#include<string.h>
+//                                                  DAY 14
+//实现一个函数，可以左旋字符串中的k个字符。
+//ABCD左旋一个字符得到BCDA
+//ABCD左旋两个字符得到CDAB
+void left_move(char *str, int k)
 {
-	int left = 0;
-	int right =sz; 
-	int tmp = 0;
-	while (left <= right)
+	int i = 0;
+	char tmp;
+	int len = strlen(str);
+	for ( i = 0; i < k; i++)
 	{
-		if (arr[left] % 2 == 1 && arr[right] % 2 == 0)
+		int j = 0;
+		for ( j = 0; j < len; j++)
 		{
-			left++;
-			right--;
+			if (*(str + j + 1))
+			{
+				tmp = *(str + j);
+				*(str + j) = *(str + 1 + j);
+				*(str + 1 + j) = tmp;
+			}
+
 		}
-		else if(arr[left] % 2 == 1 && arr[right] % 2 == 1)
+	}
+}
+//判断一个字符串是否为另外一个字符串旋转之后的字符串。
+//例如：给定s1 = AABCD和s2 = BCDAA，返回1
+//给定s1 = abcd和s2 = ACBD，返回0
+int is_left_move(char *arr, const char *p)
+{
+	int i = 0;
+	int len = strlen(arr);
+	for ( i = 0; i < len; i++)
+	{
+		left_move(arr, 1);
+		if (strcmp(arr,p) == 0)
 		{
-			right--;
+			return 1;
 		}
-		else if (arr[left] % 2 == 0 && arr[right] % 2 == 0)
-		{
-			left++;
-		}
-		else
-		{
-			tmp = arr[left];
-			arr[left] = arr[right];
-			arr[right] = tmp;
-		}
+	}
+	if (strcmp(arr, p) != 1)
+	{
+		return 0;
 	}
 }
 int main()
 {
-	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
-	int i = 0;
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	change(arr, sz);
-	for ( i = 0; i < sz;i++)
+	char s1[] = "AABCD";
+	char s2[] = "BCDAA";
+	char s3[] = "abcde";
+	int ret = is_left_move(s1, s2);
+	if (ret == 1)
 	{
-		printf("%d ", arr[i]);
+		printf("YES!\n");
+	}
+	else
+	{
+		printf("NO!\n");
 	}
 	system("pause");
 	return 0;
 }
 
+//                                                  DAY 13
+//输入一个整数数组，实现一个函数， 
+//来调整该数组中数字的顺序使得数组中所有的奇数位于数组的前半部分，
+//所有偶数位于数组的后半部分。
+//void change(int arr[], int sz)
+//{
+//	int left = 0;
+//	int right =sz; 
+//	int tmp = 0;
+//	while (left <= right)
+//	{
+//		if (arr[left] % 2 == 1 && arr[right] % 2 == 0)
+//		{
+//			left++;
+//			right--;
+//		}
+//		else if(arr[left] % 2 == 1 && arr[right] % 2 == 1)
+//		{
+//			right--;
+//		}
+//		else if (arr[left] % 2 == 0 && arr[right] % 2 == 0)
+//		{
+//			left++;
+//		}
+//		else
+//		{
+//			tmp = arr[left];
+//			arr[left] = arr[right];
+//			arr[right] = tmp;
+//		}
+//	}
+//}
+//int main()
+//{
+//	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+//	int i = 0;
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	change(arr, sz);
+//	for ( i = 0; i < sz;i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	system("pause");
+//	return 0;
+//}
+
 //有一个二维数组.
 //数组的每行从左到右是递增的，每列从上到下是递增的.
 //在这样的数组中查找一个数字是否存在。
 //时间复杂度小于O(N);
-int yang(const int arr[3][3],int find)
-{
-	int i = 0, j = 2;
-	int tmp = 0;
-	
-	while (1)
-	{
-		tmp = arr[i][j];
-		if (tmp == find)
-		{
-			return 1;
-		}
-		else if (tmp < find && j>=0)
-		{
-			i++;
-		}
-		else if (tmp > find && j>=0)
-		{
-			j--;
-		}
-		else
-		{
-			return 0;
-		}
-	}
-}
-int main()
-{
-	int arr[3][3] = { 1,2,3,4,5,6,7,8,9 };
-	int find = 5;
-	int res = yang(arr, find);
-	if (res)
-	{
-		printf("存在\n");
-	}
-	else
-	{
-		printf("不存在\n");
-	}
-	system("pause");
-	return 0;
-}
+//int yang(const int arr[3][3],int find)
+//{
+//	int i = 0, j = 2;
+//	int tmp = 0;
+//	
+//	while (1)
+//	{
+//		tmp = arr[i][j];
+//		if (tmp == find)
+//		{
+//			return 1;
+//		}
+//		else if (tmp < find && j>=0)
+//		{
+//			i++;
+//		}
+//		else if (tmp > find && j>=0)
+//		{
+//			j--;
+//		}
+//		else
+//		{
+//			return 0;
+//		}
+//	}
+//}
+//int main()
+//{
+//	int arr[3][3] = { 1,2,3,4,5,6,7,8,9 };
+//	int find = 5;
+//	int res = yang(arr, find);
+//	if (res)
+//	{
+//		printf("存在\n");
+//	}
+//	else
+//	{
+//		printf("不存在\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
 
 
 //                                           //DAY 12
@@ -219,7 +282,7 @@ int main()
 //	return 0;
 //}
 
-										     //DAY 10
+//										     //DAY 10
 //#define ROW 7
 //int main()
 //{

@@ -1,12 +1,43 @@
-//#define _CRT_SECURE_NO_WARNINGS
-//#include<stdio.h>
-//#include<stdlib.h>
-//#include<math.h>
-//#include<ctype.h>
-//#include<time.h>
-//#include<string.h>
-//
-//                                                                //5.30
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<time.h>
+#include<string.h>
+//                                                                  6.6
+//int main() 
+//{
+//	FILE  *fp = fopen("az.txt", "w+");
+//	int i = 0;
+//	for ( i = 0; i < 26; i++)
+//	{
+//		fputc(i + 'a', fp);
+//	}
+//	
+//	//for ( i = 0; i < 26; i++)
+//	//{
+//	//	putchar(fgetc(fp));
+//	//}
+//	for (i = 0; i < 26; i++)
+//	{
+//		fputc(i + 'A', fp);
+//	}
+//	rewind(fp);
+//	for (i = 26; i < 52; i++)
+//	{
+//		putchar(fgetc(fp));
+//	}
+//	
+//	fclose(fp);
+//	system("pause");
+//	return 0;
+//}
+
+
+
+
+//                                                                  5.30
 ////输入一个字符串，检查字符串的内容，如果有空格则删除空格，输出最终的字符串。
 //void delblank(char *s)
 //{
