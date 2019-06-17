@@ -86,19 +86,19 @@
 //在一个文本文件info.txt里输入10个学生的信息。
 //通过程序读取文件的学生信息，并计算每个学生的总分，把学生信息和相应的总分信息保存在文件“stu.txt”中，同时在显示屏上显示出来。
 //把输入、输出和计算总分的功能单独编写函数来完成。
-int main()
-{
-	struct student
-	{
-		char id[10];
-		char name[20];
-		char sex[10];
-		char birth[10];
-		int soure[5];
-	}stu = {"001","Kratos","male","19991108",80,80,80,80,80};
-	system("pause");
-	return 0;
-}
+//int main()
+//{
+//	struct student
+//	{
+//		char id[10];
+//		char name[20];
+//		char sex[10];
+//		char birth[10];
+//		int soure[5];
+//	}stu = {"001","Kratos","male","19991108",80,80,80,80,80};
+//	system("pause");
+//	return 0;
+//}
 
 //                                                                  5.30
 ////输入一个字符串，检查字符串的内容，如果有空格则删除空格，输出最终的字符串。

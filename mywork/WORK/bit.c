@@ -9,24 +9,39 @@
 //实现一个函数，可以左旋字符串中的k个字符。
 //ABCD左旋一个字符得到BCDA
 //ABCD左旋两个字符得到CDAB
+void left_move(char *str, int k)
+{
+	int i = 0;
+	char tmp;
+	size_t len = strlen(str);
+	for ( i = 0; i < k; i++)
+	{
+		int j = 0;
+		for ( j = 0; j < len; j++)
+		{
+			if (*(str + j + 1))
+			{
+				tmp = *(str + j);
+				*(str + j) = *(str + 1 + j);
+				*(str + 1 + j) = tmp;
+			}
+
+		}
+	}
+}
 //void left_move(char *str, int k)
 //{
-//	int i = 0;
-//	char tmp;
+//	char tmp = 0;
 //	int len = strlen(str);
-//	for ( i = 0; i < k; i++)
+//	tmp = *(str + len - k - 1);
+//	*(str + len - k - 1) = *(str + len - 1);
+//	*(str + len - 1) = tmp;
+//	while (k > 0)
 //	{
-//		int j = 0;
-//		for ( j = 0; j < len; j++)
-//		{
-//			if (*(str + j + 1))
-//			{
-//				tmp = *(str + j);
-//				*(str + j) = *(str + 1 + j);
-//				*(str + 1 + j) = tmp;
-//			}
-//
-//		}
+//		tmp = *str;
+//		*str = *(str + len - k - 1);
+//		*(str + len - k - 1) = tmp;
+//		k--;
 //	}
 //}
 //判断一个字符串是否为另外一个字符串旋转之后的字符串。
@@ -35,7 +50,7 @@
 //int is_left_move(char *arr, const char *p)
 //{
 //	int i = 0;
-//	int len = strlen(arr);
+//	size_t len = strlen(arr);
 //	for ( i = 0; i < len; i++)
 //	{
 //		left_move(arr, 1);
@@ -44,28 +59,41 @@
 //			return 1;
 //		}
 //	}
-//	if (strcmp(arr, p) != 1)
-//	{
-//		return 0;
-//	}
-//}
-//int main()
-//{
-//	char s1[] = "AABCD";
-//	char s2[] = "BCDAA";
-//	char s3[] = "abcde";
-//	int ret = is_left_move(s1, s2);
-//	if (ret == 1)
-//	{
-//		printf("YES!\n");
-//	}
-//	else
-//	{
-//		printf("NO!\n");
-//	}
-//	system("pause");
 //	return 0;
 //}
+int is_left_move(char* arr, const char *p)
+{
+	if (strlen(arr) != strlen(p))
+	{
+		return 0;
+	}
+	strncat(arr, p, strlen(arr));
+	if (strstr(arr,p) != NULL)
+	{
+		return 1;
+	}
+	return 0;
+}
+int main()
+{
+	char s1[] = "AABCD";
+	char s2[] = "BCDAA";
+	char s3[] = "abcde";
+	printf("%s\n", s1);
+	//left_move(s1, 3);
+	printf("%s\n", s1);
+	int ret = is_left_move(s1, s2);
+	if (ret == 1)
+	{
+		printf("YES!\n");
+	}
+	else
+	{
+		printf("NO!\n");
+	}
+	system("pause");
+	return 0;
+}
 
 //                                                  DAY 13
 //输入一个整数数组，实现一个函数， 
@@ -99,12 +127,36 @@
 //		}
 //	}
 //}
+//void Fun(int *left, int *right)
+//{
+//	int tmp = 0;
+//	assert(left != NULL && right != NULL);
+//	while (left < right)
+//	{
+//		while ((left < right) && *left % 2 == 1)
+//		{
+//			left++;
+//
+//		}
+//		while((left < right) && *right % 2 == 0)
+//		{
+//			right--;
+//		}
+//		if (left < right)
+//		{
+//			tmp = *left;
+//			*left = *right;
+//			*right = tmp;
+//		}
+//	}
+//}
 //int main()
 //{
-//	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+//	int arr[8] = { 1,2,3,12,67,32,97,100 };
 //	int i = 0;
 //	int sz = sizeof(arr) / sizeof(arr[0]);
-//	change(arr, sz);
+//	//change(arr, sz);
+//	Fun(arr, arr + sz - 1);
 //	for ( i = 0; i < sz;i++)
 //	{
 //		printf("%d ", arr[i]);
@@ -117,23 +169,24 @@
 //数组的每行从左到右是递增的，每列从上到下是递增的.
 //在这样的数组中查找一个数字是否存在。
 //时间复杂度小于O(N);
-//int yang(const int arr[3][3],int find)
+//int yang(const int arr[3][3],int *px,int *py,int find)
 //{
-//	int i = 0, j = 2;
+//	int i = 0, j = (*py - 1);
 //	int tmp = 0;
-//	
-//	while (1)
+//	while (i < *px && j >= 0)
 //	{
 //		tmp = arr[i][j];
 //		if (tmp == find)
 //		{
+//			*px = i;
+//			*py = j;
 //			return 1;
 //		}
-//		else if (tmp < find && j>=0)
+//		else if (tmp < find && j >= 0)
 //		{
 //			i++;
 //		}
-//		else if (tmp > find && j>=0)
+//		else if (tmp > find && j >= 0)
 //		{
 //			j--;
 //		}
@@ -145,12 +198,15 @@
 //}
 //int main()
 //{
-//	int arr[3][3] = { 1,2,3,4,5,6,7,8,9 };
+//	int arr[3][3] = { 1,2,3,2,3,4,3,4,5 };
 //	int find = 5;
-//	int res = yang(arr, find);
+//	int px = 3;
+//	int py = 3;
+//	int res = yang(arr, &px, &py, find);
 //	if (res)
 //	{
 //		printf("存在\n");
+//		printf("下标为（%d，%d）\n", px, py);
 //	}
 //	else
 //	{
