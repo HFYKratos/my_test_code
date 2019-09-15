@@ -290,7 +290,7 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
+
 
 void *Mymemcpy(void *dest, const void *src, int count)
 {
@@ -311,4 +311,57 @@ int main()
 	char str1[] = "abcdef";
 	char str2[10] = { 0 };
 	memccpy
+}
+#endif
+
+int main()
+{
+	int a[4][4] = { 1,2,8,9,
+					2,4,9,12,
+					4,7,10,13,
+					6,8,11,15 };
+	int s, i, j = 0;
+	int k = 5;
+	for ( i = 0; i <= 4; i++)
+		{
+			if (a[i][j] <= k)
+			{
+				if (a[i + 1][j] >= k)
+				{
+					for ( j = 0; j <= 4; j++)
+					{
+						if (a[i][j] == k)
+						{
+							s = 1;
+						}
+						else
+						{
+							s = 0;
+						}
+					}
+				}
+				else if(a[i][j] == k)
+				{
+					s = 1;
+				}
+				else
+				{
+					s = 0;
+				}
+			}
+			else
+			{
+				s = 0;
+			}
+		}
+	if (s == 1)
+	{
+		printf("找到了\n");
+	}
+	else
+	{
+		printf("找不到\n");
+	}
+	system("pause");
+	return 0;
 }
