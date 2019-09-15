@@ -1,0 +1,15 @@
+﻿  SingleList.c
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(20): warning C4013: “CreatNote”未定义；假设外部返回 int
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(20): warning C4047: “=”:“SingleListNote *”与“int”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(27): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(29): warning C4047: “=”:“SingleListNote *”与“int”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(38): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(37): warning C4047: “初始化”:“SingleListNote *”与“int”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(52): error C2040: “CreatNote”:“SingleListNote *(DateType)”与“int ()”的间接寻址级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(67): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(75): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(75): warning C4024: “SingleListInit”: 形参和实参 1 的类型不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(77): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(77): warning C4024: “SingleListPushback”: 形参和实参 1 的类型不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(78): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
+c:\users\administrator\source\repos\singlist\singlist\singlelist.c(78): warning C4024: “SingleListPrint”: 形参和实参 1 的类型不同
