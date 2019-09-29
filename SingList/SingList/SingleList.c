@@ -32,7 +32,7 @@ void SingleListPushback(SingleList* sl, DateType x)
 		{
 			cur = cur->next;
 		}
-		cur = CreatNote(x);
+		cur->next = CreatNote(x);
 	}
 }
 
@@ -57,41 +57,69 @@ void SingleListInsertAfter(SingleListNote* pos, DateType x)
 void SingleListPopFront(SingleList* sl)
 {
 	assert(sl);
-	SingleListNote* cur,*next;
+	SingleListNote* cur, *next;
 	if (sl->head == NULL)
 	{
 		return;
 	}
 	cur = sl->head;
-	SingleListNote* next = sl->head->next;
+	next = sl->head->next;
 	free(cur);
 	cur = NULL;
 	sl->head = next;
 }
+
 void SingleListPopBack(SingleList* sl)
 {
-
-
-
-
+	assert(sl);
+	SingleListNote* prev = NULL;
+	SingleListNote* cur = sl->head;
+	if (cur == NULL)
+	{
+		return;
+	}
+	else
+	{
+		while (cur->next)
+		{
+			prev = cur;
+			cur = cur->next;	
+		}
+		cur = NULL;
+		free(cur);
+		if (prev == NULL)
+		{
+			sl->head = NULL;
+		}
+		else
+		{
+			prev->next = NULL;
+		}
+	}
 }
+
 void SingleListEraseAfter(SingleListNote* pos)
 {
 	assert(pos);
 	SingleListNote* next = pos->next;
 	if (next == NULL)
 	{
-
+		return;
 	}
+	pos->next = next->next;
+	free(next);
+	next = NULL;
 }
 
 SingleListNote* CreatNote(DateType x)
 {
-	SingleListNote* newNote = (SingleListNote*)malloc(sizeof(SingleListNote));
-	newNote->Date = x;
-	newNote->next = NULL;
-	return newNote;
+	SingleListNote * node = (SingleListNote*)malloc(sizeof(SingleListNote));
+	assert(node);
+	node->Date = x;
+	node->next = NULL;
+	return node;
 }
+
 
 void SingleListRemove(SingleList* sl, DateType x)
 {
@@ -108,14 +136,45 @@ void SingleListRemove(SingleList* sl, DateType x)
 			}
 			else
 			{
-				prev->next = cur->next
+				prev->next = cur->next;
 			}
 			free(cur);
-
+			cur = NULL;
+		}
+		else
+		{
+			prev = cur;
+			cur = cur->next;
 		}
 	}
 }
 
+DateType SingleListCheck(SingleListNote* sl, DateType x)
+{
+	assert(sl);
+	SingleListNote* cur = sl;
+	if (cur)
+	{
+		if (cur->Date == x)
+		{
+			return 1;
+		}
+		else
+		{
+			cur = cur->next;
+		}
+	}
+	return 0;
+}
+
+void SingleListRemoveAll(SingleList* sl, DateType x)
+{
+	assert(sl);
+	while (SingleListCheck(sl,x) == 1)
+	{
+		SingleListRemove(sl, x);
+	}
+}
 
 void SingleListPrint(SingleList* sl)
 {
@@ -131,11 +190,20 @@ void SingleListPrint(SingleList* sl)
 
 void testSingleList()
 {
-	SingleList* sl;
+	SingleList sl;
 	SingleListInit(&sl);
 
-	SingleListPushback(&sl, 0);
+	SingleListPushback(&sl, 1);
+	SingleListPushFront(&sl, 2);
+	SingleListPushFront(&sl, 3);
+	SingleListPushback(&sl, 3);
 	SingleListPrint(&sl);
+
+	//SingleListPopBack(&sl);
+	//SingleListPopFront(&sl);
+	SingleListRemoveAll(&sl, 3);
+	SingleListPrint(&sl);
+	SingleListDestroy(&sl);
 }
 
 int main()

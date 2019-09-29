@@ -9,6 +9,7 @@ typedef struct SingleListNote
 	DateType Date;
 	struct SingleList* next;
 }SingleListNote;
+
 typedef struct SingleList
 {
 	SingleListNote* head;
@@ -25,4 +26,8 @@ void SingleListPopFront(SingleList* sl);
 void SingleListPopBack(SingleList* sl);
 void SingleListEraseAfter(SingleListNote* pos);
 
+SingleListNote* CreatNote(DateType x);
+void SingleListPrint(SingleList* sl);
 void SingleListRemove(SingleList* sl, DateType x);
+DateType SingleListCheck(SingleListNote* sl, DateType x);
+void SingleListRemoveAll(SingleList* sl, DateType x);

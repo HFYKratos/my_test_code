@@ -1,15 +1,17 @@
 ﻿  SingleList.c
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(20): warning C4013: “CreatNote”未定义；假设外部返回 int
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(20): warning C4047: “=”:“SingleListNote *”与“int”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(27): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(29): warning C4047: “=”:“SingleListNote *”与“int”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(38): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(37): warning C4047: “初始化”:“SingleListNote *”与“int”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(52): error C2040: “CreatNote”:“SingleListNote *(DateType)”与“int ()”的间接寻址级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(67): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(75): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(75): warning C4024: “SingleListInit”: 形参和实参 1 的类型不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(77): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(77): warning C4024: “SingleListPushback”: 形参和实参 1 的类型不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(78): warning C4047: “函数”:“SingleList *”与“SingleList **”的间接级别不同
-c:\users\administrator\source\repos\singlist\singlist\singlelist.c(78): warning C4024: “SingleListPrint”: 形参和实参 1 的类型不同
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(15): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(33): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(35): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(44): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(53): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(54): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(52): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(66): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(86): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(104): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(135): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(147): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(164): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(173): warning C4133: “函数”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+e:\mycode\my_test_code\singlist\singlist\singlelist.c(186): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
+  SingList.vcxproj -> E:\MyCode\my_test_code\SingList\Debug\SingList.exe
