@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>e:\mycode\my_test_code\headlist\headlist</FILEPATH>
+      <FILENAME>headlist.c</FILENAME>
+      <LINE>28</LINE>
+      <COLUMN>24</COLUMN>
+    </SFA>
+    <DEFECTCODE>6308</DEFECTCODE>
+    <DESCRIPTION>“realloc”可能返回 null 指针: 将 null 指针赋给“hp-&gt;a”(后者将作为参数传递给“realloc”)将导致原始内存块泄漏。</DESCRIPTION>
+    <FUNCTION>HeadCheckCapacity</FUNCTION>
+    <DECORATED>HeadCheckCapacity</DECORATED>
+    <FUNCLINE>22</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>
