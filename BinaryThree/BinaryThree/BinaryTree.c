@@ -1,9 +1,20 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include"BinaryTree.h"
 
+//int main()
+//{
+//	TestBinaryTree();
+//	system("pause");
+//	return 0;
+//}
 int main()
 {
-	TestBinaryTree();
-	system("pause");
+	char str[101];
+	int i = 0;
+	scanf("%c", str);
+	BTNode* a = BinaryTreeCreate(str, &i);
+	BinaryTreeInOrder(a);
 	return 0;
 }
 
@@ -159,4 +170,24 @@ void BinaryTreePostOrder(BTNode* root)
 	{
 		printf("# ");
 	}
+}
+
+void BinaryTreeLevelOrder(BTNode* root)
+{
+	assert(root);
+	char a[100] = 0;
+	int cur = 0;
+	a[cur] = root->_data;
+
+	if (root->_left)
+	{
+		a[cur] = root->_left->_data;
+		cur++;
+	}
+	if (root->_right)
+	{
+		a[cur] = root->_right->_data;
+		cur++;
+	}
+	root = root->_left
 }
