@@ -4,30 +4,25 @@
 #include<malloc.h>
 typedef int DateType;
 
-typedef struct SingleListNote
+typedef struct SingleListNode
 {
 	DateType Date;
-	struct SingleList* next;
-}SingleListNote;
+	struct SingleListNode* next;
+}SingleListNode;
 
-typedef struct SingleList
-{
-	SingleListNote* head;
-}SingleList;
+void SingleListInit(SingleListNode* sl);
+void SingleListDestroy(SingleListNode* sl);
 
-void SingleListInit(SingleList* sl);
-void SingleListDestroy(SingleList* sl);
+void SingleListPushback(SingleListNode* sl, DateType x);
+void SingleListPushFront(SingleListNode* sl, DateType x);
+void SingleListInsertAfter(SingleListNode* pos, DateType x);
 
-void SingleListPushback(SingleList* sl, DateType x);
-void SingleListPushFront(SingleList* sl, DateType x);
-void SingleListInsertAfter(SingleListNote* pos, DateType x);
+void SingleListPopFront(SingleListNode* sl);
+void SingleListPopBack(SingleListNode* sl);
+void SingleListEraseAfter(SingleListNode* pos);
 
-void SingleListPopFront(SingleList* sl);
-void SingleListPopBack(SingleList* sl);
-void SingleListEraseAfter(SingleListNote* pos);
-
-SingleListNote* CreatNote(DateType x);
-void SingleListPrint(SingleList* sl);
-void SingleListRemove(SingleList* sl, DateType x);
-DateType SingleListCheck(SingleListNote* sl, DateType x);
-void SingleListRemoveAll(SingleList* sl, DateType x);
+SingleListNode* CreatNote(DateType x);
+void SingleListPrint(SingleListNode* sl);
+void SingleListRemove(SingleListNode* sl, DateType x);
+DateType SingleListCheck(SingleListNode* sl, DateType x);
+void SingleListRemoveAll(SingleListNode* sl, DateType x);

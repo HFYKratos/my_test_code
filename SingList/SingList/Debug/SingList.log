@@ -1,17 +1,1 @@
 ﻿  SingleList.c
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(15): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(33): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(35): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(44): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(53): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(54): warning C4133: “=”: 从“SingleListNote *”到“SingleList *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(52): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(66): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(86): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(104): warning C4133: “初始化”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(135): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(147): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(164): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(173): warning C4133: “函数”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-e:\mycode\my_test_code\singlist\singlist\singlelist.c(186): warning C4133: “=”: 从“SingleList *”到“SingleListNote *”的类型不兼容
-  SingList.vcxproj -> E:\MyCode\my_test_code\SingList\Debug\SingList.exe
