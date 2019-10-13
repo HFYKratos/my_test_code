@@ -1,8 +1,2 @@
 ﻿  list.c
-e:\mycode\my_test_code\list\list\list.c(71): warning C4101: “next”: 未引用的局部变量
-e:\mycode\my_test_code\list\list\list.c(71): warning C4101: “newNode”: 未引用的局部变量
-e:\mycode\my_test_code\list\list\list.c(116): warning C4047: “函数”:“list *”与“list **”的间接级别不同
-e:\mycode\my_test_code\list\list\list.c(116): warning C4024: “ListPushback”: 形参和实参 1 的类型不同
-e:\mycode\my_test_code\list\list\list.c(117): warning C4047: “函数”:“list *”与“list **”的间接级别不同
-e:\mycode\my_test_code\list\list\list.c(117): warning C4024: “listPrint”: 形参和实参 1 的类型不同
-  list.vcxproj -> E:\MyCode\my_test_code\list\Debug\list.exe
+  list.vcxproj -> E:\MyCode\my_test_code\list\Debug\List.exe

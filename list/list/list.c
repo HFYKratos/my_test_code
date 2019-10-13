@@ -1,16 +1,16 @@
 #include"list.h"
 
-void ListInit(list** sl)
+void ListInit(List* sl)
 {
 	assert(sl);
-	(*sl) = CreatNote(0);
-	(*sl)->prev = (*sl);
-	(*sl)->next = (*sl);
-	(*sl)->date = 0;
+	ListNode* head = CreatNote(-1);
+	head->next = head;
+	head->prev = head;
+	sl->head = head;
 }
-list* CreatNote(DateType x)
+ListNode* CreatNote(DateType x)
 {
-	list* newNode = (list* )malloc(sizeof(list));
+	ListNode* newNode = (ListNode* )malloc(sizeof(ListNode));
 	if (NULL == newNode)
 	{
 		assert(0);
@@ -22,95 +22,229 @@ list* CreatNote(DateType x)
 	return newNode;
 }
 
-void listPushFront(list* sl, DateType x)
+void ListNodePushFront(ListNode* sl, DateType x)
 {
 	assert(sl);
-	list* newNode = CreatNote(x);
-	list* prev = sl->prev;
-	prev->next = newNode;
-	newNode->next = sl;
-	sl->prev = newNode;
-	newNode->prev = prev;
+	ListNode* newNode = CreatNote(x);
+	ListNode* next = sl->next;
+	newNode->next = next;
+	sl->next = newNode;
+	newNode->prev = sl;
+	next->prev = newNode;
 }
 
-void ListPushback(list* sl, DateType x)
+void ListNodePushback(ListNode* sl, DateType x)
 {
 	assert(sl);
-	list* newNode = CreatNote(x);
-	list* tail = sl;
-	while (sl != tail->next)
+	ListNode* tail = sl->prev;
+	ListNode* newNode = CreatNote(x);
+	if (tail == sl)
 	{
-		tail = tail->next;
+		sl->next = newNode;
+		newNode->next = sl;
+		newNode->prev = sl;
+		sl->prev = newNode;
+	}
+	else
+	{
+		tail->next = newNode;
+		newNode->next = sl;
+		newNode->prev = tail;
+		sl->prev = newNode;
 	}
 }
 
-void listInsertFront(list* pos, DateType x)
+void ListNodeInsertFront(ListNode* pos, DateType x)
 {
 	assert(pos);
-	list* prev = pos->prev;
-	list* newNode = CreatNote(x);
+	ListNode* prev = pos->prev;
+	ListNode* newNode = CreatNote(x);
 	prev->next = newNode;
 	newNode->next = pos;
 	newNode->prev = prev;
 	pos->prev = newNode;
 }
 
-void listPopFront(list* sl) 
+void ListNodePopFront(ListNode* sl) 
 {
 	assert(sl);
-	list* next, *newNode;
-	if (sl == NULL)
+	if (sl->next == sl->prev)
 	{
-
+		return;
+	}
+	else
+	{
+		ListNode* prev = sl;
+		ListNode* cur = sl->next;
+		prev->next = cur->next;
+		cur->next->prev = prev;
+		free(cur);
+		cur = NULL;
 	}
 }
 
-void listPrint(list* sl)
+void ListNodePopBack(ListNode* sl)
 {
 	assert(sl);
-	list* cur = sl;
-	if (sl == NULL)
+	if (sl->next == sl->prev)
+	{
+		return;
+	}
+	ListNode* tail = sl->prev;
+	tail->prev->next = sl;
+	sl->prev = tail->prev;
+	free(tail);
+	tail = NULL;
+}
+
+void ListNodeEraseAfter(ListNode* pos)
+{
+	assert(pos);
+	if (pos->next == pos->prev)
+	{
+		return;
+	}
+	ListNode* next = pos->next;
+	pos->next = next->next;
+	next->next->prev = pos;
+	free(next);
+	next = NULL;
+}
+
+DateType ListNodeCheck(ListNode* sl, DateType x)
+{
+	assert(sl);
+	if (sl->next == sl->prev)
+	{
+		return 0;
+	}
+	ListNode* cur = sl->next;
+	while (cur->next != sl)
+	{
+		if (cur->date == x)
+		{
+			return 1;
+		}
+		cur = cur->next;
+	}
+	if (cur->date == x)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+void ListNodeRemove(ListNode* sl, DateType x)
+{
+	assert(sl);
+	if (sl->next == sl->prev)
+	{
+		return;
+	}
+	DateType ret = ListNodeCheck(sl, x);
+	if (ret)
+	{
+		ListNode* cur = sl->next;
+		ListNode* prev = cur->prev;
+		while (cur != sl)
+		{
+			if (cur->date == x)
+			{
+				prev->next = cur->next;
+				cur->next->prev = prev;
+				free(cur);
+				cur = NULL;
+				break;
+			}
+			else
+			{
+				cur = cur->next;
+				prev = cur->prev;
+			}
+		}
+	}
+	else
+	{
+		return;
+	}
+}
+
+void ListNodeRemoveAll(ListNode* sl, DateType x)
+{
+	assert(sl);
+	if (sl->next == sl->prev)
+	{
+		return;
+	}
+	while (ListNodeCheck(sl, x))
+	{
+		ListNodeRemove(sl, x);
+	}
+}
+
+void ListNodePrint(List* sl)
+{
+	assert(sl);
+	ListNode* cur = sl->head;
+	if (sl->head == cur->next)
 	{
 		printf("NULL\n");
 		return;
 	}
-	while (sl != cur->next)
+	while (sl->head != cur->next)
 	{
-		printf("%d -> ", cur->date);
+		printf("%d -> ", cur->next->date);
 		cur = cur->next;
 	}
-	printf("%d -> %d\n", cur->date, sl->date);
+	printf("\n");
 }
 
-void ListDestroy(list** sl) 
+void ListDestroy(List* sl) 
 {
 	assert(sl);
-	list* cur1 = (*sl)->next;
-	list* cur2 = NULL;
-	while ((*sl) != cur1)
+	ListNode* cur1 = sl->head->next;
+	ListNode* cur2 = NULL;
+	while (sl->head != cur1)
 	{
 		cur2 = cur1->next;
 		free(cur1);
 		cur1 = cur2;
 	}
-	free((*sl));
-	(*sl) = NULL;
+	free(sl->head);
+	sl->head = NULL;
 }
 
 
-void testlist()
+void testListNode()
 {
-	list* sl;
+	List sl;
 	ListInit(&sl);
 
-	ListPushback(&sl, 1);
-	listPrint(&sl);
+	ListNodePrint(&sl);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePrint(&sl);
+	ListNodePushFront((&sl)->head, 2);
+	ListNodePushFront((&sl)->head, 3);
+	ListNodePushFront((&sl)->head, 4);
+	ListNodePrint(&sl);
+	ListNodePopBack((&sl)->head);
+	ListNodePrint(&sl);
+	ListNodePopFront((&sl)->head);
+	ListNodePrint(&sl);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePushback((&sl)->head, 1);
+	ListNodePrint(&sl);
+	ListNodeRemoveAll((&sl)->head, 1);
+	ListNodePrint(&sl);
 
 	ListDestroy(&sl);
 }
 int main()
 {
-	testlist();
+	testListNode();
 	system("pause");
 	return 0;
 }

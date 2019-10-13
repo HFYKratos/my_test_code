@@ -6,29 +6,34 @@
 
 typedef int DateType;
 //有头双向链表
-typedef struct listNode
+typedef struct ListNode
 {
 	DateType date;
-	struct listNode* next;
-	struct listNode* prev;
-}list;
+	struct ListNode* next;
+	struct ListNode* prev;
+}ListNode;
 
-void ListInit(list** sl);
-void ListDestroy(list** sl);
+typedef struct List
+{
+	struct ListNode* head;
+}List;
 
-void ListPushback(list* sl, DateType x);
-void listPushFront(list* sl, DateType x);
-void listInsertAfter(list* pos, DateType x);
+void ListInit(List* sl);
+void ListDestroy(List* sl);
 
-void listPopFront(list* sl);
-void listPopBack(list* sl);
-void listEraseAfter(list* pos);
+void ListNodePushback(ListNode* sl, DateType x);
+void ListNodePushFront(ListNode* sl, DateType x);
+void ListNodeInsertFront(ListNode* pos, DateType x);
 
-list* CreatNote(DateType x);
-void listPrint(list* sl);
-void listRemove(list* sl, DateType x);
-DateType listCheck(list* sl, DateType x);
-void listRemoveAll(list* sl, DateType x);
+void ListNodePopFront(ListNode* sl);
+void ListNodePopBack(ListNode* sl);
+void ListNodeEraseAfter(ListNode* pos);
+
+ListNode* CreatNote(DateType x);
+void ListNodePrint(List* sl);
+void ListNodeRemove(ListNode* sl, DateType x);
+DateType ListNodeCheck(ListNode* sl, DateType x);
+void ListNodeRemoveAll(ListNode* sl, DateType x);
 
 
 
