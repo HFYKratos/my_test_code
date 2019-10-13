@@ -34,6 +34,3 @@ void ListNodePrint(List* sl);
 void ListNodeRemove(ListNode* sl, DateType x);
 DateType ListNodeCheck(ListNode* sl, DateType x);
 void ListNodeRemoveAll(ListNode* sl, DateType x);
-
-
-
