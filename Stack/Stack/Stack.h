@@ -11,6 +11,7 @@ typedef struct Stack
 	STDataType* _a;
 	int _top; // Õ»¶¥
 	int _capacity; // ÈÝÁ¿
+	int _size;//³ß´ç
 }Stack;
 
 void StackInit(Stack* ps);
