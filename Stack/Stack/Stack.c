@@ -49,7 +49,14 @@ void StackPop(Stack* ps)
 		return;
 	}
 	ps->_size--;
-	ps->_top = ps->_a[ps->_size];
+	if (ps->_size == 0)
+	{
+		ps->_top = 0;
+	}
+	else
+	{
+		ps->_top = ps->_a[ps->_size - 1];
+	}
 }
 
 STDataType StackTop(Stack* ps)

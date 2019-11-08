@@ -79,7 +79,7 @@ QUDataType QueueBack(Queue* pq)
 	{
 		return 10086;
 	}
-	if (pq->rear == 0 && pq->front != 0 && pq->size != 0)
+	if (pq->rear == 0 && pq->size != 0)
 	{
 		return pq->arr[pq->capacity - 1];
 	}
