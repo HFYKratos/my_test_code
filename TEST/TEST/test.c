@@ -822,7 +822,8 @@ int main()
 	return 0;
 }
 
-//#if 0
+#endif
+#if 0
 
 struct ListNode
 {
@@ -837,79 +838,83 @@ struct ListNode* CreatNode(int x)
 	return newNode;
 }
 
-struct ListNode* deleteDuplication(struct ListNode* pHead)
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
 {
-	if (pHead == NULL && pHead->next == NULL)
+	if (headA == NULL || headB == NULL)
 	{
-		return pHead;
+		return NULL;
 	}
-	struct ListNode* cur = NULL;
-	struct ListNode* next = pHead->next;
-	struct ListNode* prev = NULL;
-	while (pHead->val == next->val)
+	struct ListNode* a = headA;
+	struct ListNode* b = headB;
+	struct ListNode* tmp = b;
+	struct ListNode* tmp3 = a;
+
+	while (a)
 	{
-		if (next->next == NULL)
+		tmp = b;
+		tmp3 = a;
+		while (tmp)
 		{
-			return NULL;
-		}
-		pHead = next;
-		next = next->next;
-	}
-	prev = pHead;
-	cur = next;
-	if (next->next == NULL)
-	{
-		return pHead;
-	}
-	next = next->next;
-	while (next)
-	{
-		while (cur->val == next->val)
-		{
-			if (next->next == NULL)
+			struct ListNode* tmp2 = tmp;
+			while (tmp->val == a->val)
 			{
-				prev->next = NULL;
-				return pHead;
+				tmp = tmp->next;
+				a = a->next;
+				if (tmp == NULL && a == NULL)
+				{
+					return tmp2;
+				}
+				if (tmp == NULL || a == NULL)
+				{
+					break;
+				}
 			}
-			next = next->next;
-			if (next->next == NULL || next->val != next->next->val)
-			{
-				prev->next = next;
-			}
+			a = tmp3;
+			tmp = tmp2->next;
 		}
-		if (cur->val != cur->next->val)
-		{
-			prev = cur;
-		}
-		cur = next;
-		next = next->next;
+		a = a->next;
 	}
-	return pHead;
+	return NULL;
 }
 
 int main()
 {
 	struct ListNode* l1 = NULL;
+	struct ListNode* l2 = NULL;
 	struct ListNode* next = NULL;
-	l1 = CreatNode(1);
+	l1 = CreatNode(4);
 	next = l1;
-	next->next = CreatNode(2);
+	next->next = CreatNode(1);
 	next = next->next;
-	next->next = CreatNode(3);
-	next = next->next;
-	next->next = CreatNode(3);
-	next = next->next;
-	next->next = CreatNode(4);
+	next->next = CreatNode(8);
 	next = next->next;
 	next->next = CreatNode(4);
 	next = next->next;
 	next->next = CreatNode(5);
-	next = deleteDuplication(l1);
+	next = next->next;
+
+	next = NULL;
+	l2 = CreatNode(5);
+	next = l2;
+	next->next = CreatNode(0);
+	next = next->next;
+	next->next = CreatNode(1);
+	next = next->next;
+	next->next = CreatNode(8);
+	next = next->next;
+	next->next = CreatNode(4);
+	next = next->next;
+	next->next = CreatNode(5);
+
+	getIntersectionNode(l1, l2);
+
 	system("pause");
 	return 0;
 }
 
+#endif
 
+#if 0
 
 int removeDuplicates(int* nums, int numsSize)
 {

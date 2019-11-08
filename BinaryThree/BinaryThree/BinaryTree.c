@@ -1,40 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
-
 #include"BinaryTree.h"
 
-//int main()
-//{
-//	TestBinaryTree();
-//	system("pause");
-//	return 0;
-//}
-int main()
-{
-	char str[101];
-	int i = 0;
-	scanf("%c", str);
-	BTNode* a = BinaryTreeCreate(str, &i);
-	BinaryTreeInOrder(a);
-	return 0;
-}
-
-void TestBinaryTree()
-{
-	int i = 0;
-	char pi[] = { 'A','B','D','#','#','E','#','H','#','#','C','F','#','#','G','#','#' };
-
-	BTNode* a = BinaryTreeCreate(pi, &i);
-	BinaryTreePrevOrder(a);
-	printf("\n");
-	BinaryTreeInOrder(a);
-	printf("\n");
-	BinaryTreePostOrder(a);
-	printf("\n");
-
-	BinaryTreeDestory(&a);
-}
-
-BTNode* BinaryTreeCreate(BTDataType* a, int* pi)
+BTNode* BinaryTreeCreate(BTDataType* a, BTDataType* pi)
 {
 	if (a[*pi] != '#')
 	{
@@ -175,7 +142,7 @@ void BinaryTreePostOrder(BTNode* root)
 void BinaryTreeLevelOrder(BTNode* root)
 {
 	assert(root);
-	char a[100] = 0;
+	char a[100];
 	int cur = 0;
 	a[cur] = root->_data;
 
@@ -189,5 +156,28 @@ void BinaryTreeLevelOrder(BTNode* root)
 		a[cur] = root->_right->_data;
 		cur++;
 	}
-	root = root->_left
+	root = root->_left;
+}
+
+void TestBinaryTree()
+{
+	int i = 0;
+	char pi[] = { 'A','B','D','#','#','E','#','H','#','#','C','F','#','#','G','#','#' };
+
+	BTNode* a = BinaryTreeCreate(pi, &i);
+	BinaryTreePrevOrder(a);
+	printf("\n");
+	BinaryTreeInOrder(a);
+	printf("\n");
+	BinaryTreePostOrder(a);
+	printf("\n");
+
+	BinaryTreeDestory(&a);
+}
+
+int main()
+{
+	TestBinaryTree();
+	system("pause");
+	return 0;
 }
