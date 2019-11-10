@@ -967,4 +967,13 @@ int main()
 	system("pause");
 	return 0;
 }
+
+int main()
+{
+	printf("123\n");
+	printf("456\t");
+
+	system("pause");
+	return 0;
+}
 #endif
