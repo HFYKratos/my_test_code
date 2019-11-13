@@ -1,7 +1,196 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<string>
+#include<vector>
 using namespace std;
+
+
+#if 0
+bool chkParenthesis(string A = "()(())", int n = 6)
+{
+	int flag = 0;
+	if (n % 2 != 0)
+	{
+		return false;
+	}
+	string::iterator it = A.begin();
+	while (it != A.end())
+	{
+		if (*it != '(' && *it != ')')
+		{
+			return false;
+		}
+		if (*it == '(')
+		{
+			flag++;
+		}
+		if (*it == ')')
+		{
+			flag--;
+		}
+		if (flag < 0)
+		{
+			return false;
+		}
+		it++;
+	}
+	if (flag == 0)
+	{
+		return true;
+	}
+	return false;
+}
+int main()
+{
+	chkParenthesis();
+	system("pause");
+	return 0;
+}
+
+int fib(int n)//·ÇµÝ¹éÐÎÊ½
+{
+	int result;
+	int pre_result;
+	int next_older_result;
+	result = pre_result = 1;
+	while (n > 2)
+	{
+		n -= 1;
+		next_older_result = pre_result;
+		pre_result = result;
+		result = pre_result + next_older_result;
+	}
+	if (n == 0)
+	{
+		return 0;
+	}
+	return result;
+}
+int main()
+{
+	int num = 0;
+	scanf("%d", &num);
+	int i = 0;
+	int next = 0;
+	while (1)
+	{
+		if (fib(i) >= num)
+		{
+			next = fib(i);
+			break;
+		}
+		i++;
+	}
+	int prev = fib(i - 1);
+	int step = num - prev;
+	if (step > next - num)
+	{
+		cout << next - num << endl;
+	}
+	else
+	{
+		cout << step << endl;
+	}
+	system("pause");
+	return 0;
+}
+
+int main()
+{
+	string str;
+	char ch[100];
+	cin.getline(ch, 100);
+	str = ch;
+	int len = str.length();
+	if (len == 0)
+	{
+		return 0;
+	}
+	int result = 0;
+	int flag = 1;
+	int i = 0;
+	if (str[i] == '-')
+	{
+		flag = -1;
+		i++;
+	}
+	if (str[i] == '+')
+	{
+		flag = 1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+		{
+			i++;
+		}
+		if (str[i] >= '0'&&str[i] <= '9')
+		{
+			result = (result * 10 + flag * (str[i] - '0'));
+			i++;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	cout << result << endl;
+	system("pause");
+	return 0;
+}
+
+int main()
+{
+	vector<vector<int>> num;
+	size_t x = 0, y = 0;
+	for (size_t i = 0; i < 2; i++)
+	{
+		int tmp = 0;
+		scanf("%d", &tmp);
+		if (i == 0)
+		{
+			x = tmp;
+		}
+		else
+		{
+			y = tmp;
+		}
+	}
+	num.resize(x);
+	for (size_t i = 0; i < x; i++)
+	{
+		num[i].resize(y, 0);
+		for (size_t j = 0; j < y; j++)
+		{
+			if (i % 4 < 2)
+			{
+				if (j % 4 < 2)
+				{
+					num[i][j] = 1;
+				}
+			}
+			else
+			{
+				if (j % 4 >= 2)
+				{
+					num[i][j] = 1;
+				}
+			}
+		}
+	}
+	int sum = 0;
+	for (size_t i = 0; i < x; i++)
+	{
+		for (size_t j = 0; j < y; j++)
+		{
+			sum = sum + num[i][j];
+		}
+	}
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
 
 int add(int num, int n, const int *arr)
 {
@@ -57,8 +246,6 @@ int main()
 	return 0;
 }
 
-
-#if 0
 bool isRever(string str)
 {
 	string re;

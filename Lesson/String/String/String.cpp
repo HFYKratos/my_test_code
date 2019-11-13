@@ -171,6 +171,7 @@ public:
 		_str[pos] = c;
 		++_size;
 	}
+
 	void insert(size_t pos, const char* str)
 	{
 		int sz = strlen(str);
@@ -194,9 +195,50 @@ public:
 
 	}
 
-	void er()
+	void erase(size_t pos, int len)
 	{
+		if (pos + len)
+		{
 
+		}
+		_size -= len;
+	}
+
+	size_t find(char ch, size_t pos = 0)
+	{
+		for (size_t i = 0; i < _size; i++)
+		{
+			if (ch == _str[i])
+			{
+				return i;
+			}
+		}
+		return npos;
+	}
+
+	size_t find(const char* str, size_t pos = 0)
+	{
+		char* start = strstr(_str + pos, str);
+		if (start == nullptr)
+		{
+			return npos;
+		}
+		return 
+	}
+
+
+	void erase(iterator it)
+	{
+		if (it < end() && it >= begin())
+		{
+			return;
+		}
+		while (it != end())
+		{
+			*it = *(it + 1);
+			++it;
+		}
+		--_size;
 	}
 
 	~String()
@@ -208,10 +250,13 @@ public:
 	}
 
 private:
+	static const size_t npos;
 	char* _str;
 	size_t _size;
 	size_t _capacity;
 };
+
+static const size_t npos = -1;
 
 void teststring()
 {

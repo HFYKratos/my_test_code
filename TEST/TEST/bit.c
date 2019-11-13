@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#pragma once
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -9,6 +10,7 @@
 //实现一个函数，可以左旋字符串中的k个字符。
 //ABCD左旋一个字符得到BCDA
 //ABCD左旋两个字符得到CDAB
+#if 0
 void left_move(char *str, int k)
 {
 	int i = 0;
@@ -29,6 +31,7 @@ void left_move(char *str, int k)
 		}
 	}
 }
+
 //void left_move(char *str, int k)
 //{
 //	char tmp = 0;
@@ -640,41 +643,50 @@ int main()
 //	return 0;
 //}
 
-//int fib1(int n)//递归形式
-//{
-//	int result;
-//	if (n > 2)
-//	{
-//		return result = fib1(n - 1) + fib1(n - 2);
-//	}
-//	if (n <= 2)
-//		return 1;
-//}
-//int fib2(int n)//非递归形式
-//{
-//	int result;
-//	int pre_result;
-//	int next_older_result;
-//	result = pre_result = 1;
-//	while (n > 2)
-//	{
-//		n -= 1;
-//		next_older_result = pre_result;
-//		pre_result = result;
-//		result = pre_result + next_older_result;
-//	}
-//	return result;
-//}
-//int main()
-//{
-//	int n, result;
-//	printf("请输入需要求得的第n个数：");
-//	scanf("%d", &n);
-//	result = fib1(n);
-//	printf("%d\n", result);
-//	system("pause");
-//	return 0;
-//}
+int fib(int n)//非递归形式
+{
+	int result;
+	int pre_result;
+	int next_older_result;
+	result = pre_result = 1;
+	while (n > 2)
+	{
+		n -= 1;
+		next_older_result = pre_result;
+		pre_result = result;
+		result = pre_result + next_older_result;
+	}
+	if (n == 0)
+	{
+		return 0;
+	}
+	return result;
+}
+int main()
+{
+	int num = 0;
+	scanf("%d", &num);
+	int i = 0;
+	int next = 0;
+	while (1)
+	{
+		if (fib(i) >= num)
+		{
+			next = fib(i);
+			break;
+		}
+		i++;
+	}
+	int prev = fib(i - 1);
+	int step = num - prev;
+	if (step > next - num)
+	{
+		cout << next - num << endl;
+	}
+	cout << step << endl;
+	system("pause");
+	return 0;
+}
 
 //void init(int* a[],int sz)
 //{
@@ -1191,3 +1203,4 @@ int main()
 //	system("pause");
 //	return 0;
 //}
+#endif

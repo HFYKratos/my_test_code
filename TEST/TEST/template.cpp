@@ -10,7 +10,7 @@
 //	a = b;
 //	b = tmp;
 //}
-
+#if 0
 template <class A>
 A Add(A a, A b)
 {
@@ -29,3 +29,4 @@ int main()
 	system("pause");
 	return 0;
 }
+#endif
