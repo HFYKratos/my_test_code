@@ -27,7 +27,7 @@ public:
 		++_finish;
 	}
 
-	size_t Capacity()
+	size_t Capacity()const
 	{
 		return _eos - _start;
 	}
@@ -58,6 +58,11 @@ public:
 	}
 
 	const T& operator[](size_t pos) const
+	{
+		assert(pos < Size());
+		return _start[pos];
+	}
+	T& operator[](size_t pos)
 	{
 		assert(pos < Size());
 		return _start[pos];
@@ -109,9 +114,11 @@ public:
 		iterator begin = pos + 1;
 		while (begin < _finish)
 		{
-
+			*(begin - 1) = *begin;
+			++begin;
 		}
-
+		--_finish;
+		return pos;
 	}
 
 	void Resize(size_t n,const T& val = T())
@@ -129,12 +136,15 @@ public:
 			while (_finish != _start + n)
 			{
 				*_finish = val;
-				++finish++;
+				++_finish++;
 			}
 		}
 	}
 
-	void PopBack();
+	void PopBack()
+	{
+		Erase(end() - 1);
+	}
 
 	template<class InputItertor>
 	Vector(InputItertor first, InputItertor last)
@@ -144,7 +154,6 @@ public:
 			PushBack(*first);
 			++first;
 		}
-
 	}
 
 	Vector(const Vector<T>& vec)
@@ -158,7 +167,7 @@ public:
 		}
 	}
 
-	Vector<T>& operator=(const Vector<T>& vec)
+	Vector<T>& operator=(Vector<T>& vec)
 	{
 		Swap(vec);
 		return *this;
@@ -197,14 +206,15 @@ void Print(const Vector<T>& vec)
 	cout << endl;
 }
 
+
 template <class T>
 void Print2(const Vector<T>& vec)
 {
-	Vector<T>::const_iterator it = vec.begin();
-	for (it != vec.end)
+	typename Vector<T>::const_iterator vit = vec.begin();
+	while (vit != vec.end())
 	{
-		cout << *it << " ";
-		it++;
+		cout << *vit << " ";
+		++vit;
 	}
 	cout << endl;
 }
@@ -215,7 +225,7 @@ void testVec1()
 	v.PushBack(1);
 	v.PushBack(2);
 	v.PushBack(3);
-	Print(v);
+	Print2(v);
 
 }
 
@@ -234,7 +244,8 @@ void testVec2()
 
 int main()
 {
-	testVec2();
+	testVec1();
+	//testVec2();
 	system("pause");
 	return 0;
 }

@@ -4,8 +4,213 @@
 #include<vector>
 using namespace std;
 
+void Down(int& sum, int num[]);
+void Right(int& sum, int num[])
+{
+	int tmp = num[1];
+	num[1]--;
+	if (num[0] > 0 || num[1] > 0)
+	{
+		if (num[0] != 0)
+		{
+			int tmp1 = num[0];
+			int tmp2 = num[1];
+			Down(sum, num);
+		}
+		if (num[1] != 0)
+		{
+			int tmp1 = num[0];
+			int tmp2 = num[1];
+			Right(sum, num);
+		}
+
+	}
+	if (num[0] == 0 && num[1] == 0)
+	{
+		sum++;
+	}
+	num[1] = tmp;
+}
+void Down(int& sum, int num[])
+{
+	int tmp = num[0];
+	num[0]--;
+	if (num[0] > 0 || num[1] > 0)
+	{
+		if (num[0] != 0)
+		{
+			int tmp1 = num[0];
+			int tmp2 = num[1];
+			Down(sum, num);
+		}
+		if (num[1] != 0)
+		{
+			int tmp1 = num[0];
+			int tmp2 = num[1];
+			Right(sum, num);
+		}
+		
+	}
+	if (num[0] == 0 && num[1] == 0)
+	{
+		sum++;
+	}
+	num[0] = tmp;
+}
+void calculate(int& sum, int num[])
+{
+	Down(sum, num);
+	Right(sum, num);
+}
+int main()
+{
+	int num[4] = { 0 };
+	cin >> num[0] >> num[1];
+	int sum = 0;
+	if (num[0] == 0 || num[1] == 0)
+	{
+		cout << sum << endl;
+	}
+	calculate(sum, num);
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
+
 
 #if 0
+int bitAdd(int a, int b)
+{
+	if (b == 0)
+		return a;
+	if (b == -a)
+	{
+		return 0;
+	}
+	int sum = a ^ b;
+	int carry = (a&b) << 1;
+	return bitAdd(sum, carry);
+}
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	cout << bitAdd(a, b) << endl;
+	system("pause");
+	return 0;
+}
+
+
+int main()
+{
+	size_t a = 0, b = 0;
+	cin >> a >> b;
+	size_t min = a < b ? a : b;
+	if (min == 1)
+	{
+		cout << a * b << endl;
+		return 0;
+	}
+	size_t ret = 1;
+	for (size_t i = 2; i <= min; i++)
+	{
+		while (a%i == 0 && b%i == 0)
+		{
+			a = a / i;
+			b = b / i;
+			ret = ret * i;
+		}
+		min = a < b ? a : b;
+	}
+	ret = a * b * ret;
+	cout << ret << endl;
+	system("pause");
+	return 0;
+}
+
+bool lengths(const vector<string> strs)
+{
+	size_t length = strs.size();
+	size_t i = 0;
+	for (i = 0; i < length - 1; i++)
+	{
+		size_t size1 = strs[i].size();
+		size_t size2 = strs[i + 1].size();
+		if (size1 > size2)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool lexicographically(const vector<string> strs)
+{
+	size_t length = strs.size();
+	size_t i = 0;
+	for (i = 0; i < length - 1; i++)
+	{
+		string str1 = strs[i];
+		string str2 = strs[i + 1];
+		string::iterator it1 = str1.begin();
+		string::iterator it2 = str2.begin();
+		while (it1 != str1.end())
+		{
+			if (*it1 > *it2)
+			{
+				return false;
+			}
+			if (*it1 < *it2)
+			{
+				break;
+			}
+			it1++;
+			it2++;
+		}
+	}
+	return true;
+}
+int main()
+{
+	int n = 0;
+	cin >> n;
+	vector<string> strs;
+	int flag1 = 0, flag2 = 0;
+	strs.resize(n);
+	for (int i = 0; i < n; i++)
+	{
+		string ch;
+		cin >> ch;
+		strs[i] = ch;
+	}
+	if (lexicographically(strs))
+	{
+		flag1++;
+	}
+	if (lengths(strs))
+	{
+		flag2++;
+	}
+	if (flag1 == 1 && flag2 == 1)
+	{
+		cout << "both" << endl;
+	}
+	if (flag1 == 1 && flag2 == 0)
+	{
+		cout << "lexicographically" << endl;
+	}
+	if (flag1 == 0 && flag2 == 1)
+	{
+		cout << "lengths" << endl;
+	}
+	if(flag1 == 0 && flag2 == 0)
+	{
+		cout << "none" << endl;
+	}
+	system("pause");
+	return 0;
+}
+
 bool chkParenthesis(string A = "()(())", int n = 6)
 {
 	int flag = 0;
