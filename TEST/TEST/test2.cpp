@@ -4,6 +4,218 @@
 #include<vector>
 using namespace std;
 
+void length(int& score, const string pw)
+{
+	int size = pw.size();
+	score += 5;
+	if (size >= 5)
+	{
+		score += 5;
+		if (size >= 8)
+		{
+			score += 15;
+		}
+	}
+}
+
+void letter(int& score, int& s, int& b, string pw)
+{
+	string::iterator it = pw.begin();
+	while (it != pw.end())
+	{
+		if (*it >= 'a' && *it <= 'z')
+		{
+			s++;
+		}
+		else if (*it >= 'A' && *it <= 'Z')
+		{
+			b++;
+		}
+		*it++;
+	}
+	if (s > 0 || b > 0)
+	{
+		score += 10;
+		if (s > 0 && b > 0)
+		{
+			score += 10;
+		}
+	}
+}
+
+void number(int& score, int& num, string pw)
+{
+	string::iterator it = pw.begin();
+	while (it != pw.end())
+	{
+		if (*it >= '0' && *it <= '9')
+		{
+			num++;
+		}
+		*it++;
+	}
+	if (num > 0)
+	{
+		score += 10;
+		if (num > 1)
+		{
+			score += 10;
+		}
+	}
+}
+
+void otherChar(int& score, int& other, string pw)
+{
+	string::iterator it = pw.begin();
+	while (it != pw.end())
+	{
+		if ((*it >= 0x21 && *it <= 0x2F)
+			|| (*it >= 0x3A && *it <= 0x40)
+			|| (*it >= 0x5B && *it <= 0x60)
+			|| (*it >= 0x7B && *it <= 0x7E))
+		{
+			other++;
+		}
+		*it++;
+	}
+	if (other > 0)
+	{
+		score += 10;
+		if (other > 1)
+		{
+			score += 15;
+		}
+	}
+}
+
+int main()
+{
+	string pw;
+	cin >> pw;
+	if (pw == " ")
+	{
+		cout << "VERY_WEAK" << endl;
+		return 0;
+	}
+	int num = 0, small = 0, big = 0, other = 0, score = 0;
+	length(score, pw);
+	letter(score, small, big, pw);
+	number(score, num, pw);
+	otherChar(score, other, pw);
+	if (num > 0 && (small > 0 || big > 0))
+	{
+		score += 2;
+		if (other > 0)
+		{
+			score += 3;
+			if (small > 0 && big > 0)
+			{
+				score += 5;
+			}
+		}
+	}
+	if (score <= 90)
+	{
+		if (score <= 80)
+		{
+			if (score <= 70)
+			{
+				if (score <= 60)
+				{
+					if (score <= 50)
+					{
+						if (score <= 25)
+						{
+							cout << "VERY_WEAK" << endl;
+							return 0;
+						}
+						cout << "WEAK" << endl;
+						return 0;
+					}
+					cout << "AVERAGE" << endl;
+					return 0;
+				}
+				cout << "STRONG" << endl;
+				return 0;
+			}
+			cout << "VERY_STRONG" << endl;
+			return 0;
+		}
+		cout << "SECURE" << endl;
+		return 0;
+	}
+	cout << "VERY_SECURE" << endl;
+	system("pause");
+	return 0;
+}
+#if 0
+int main()
+{
+	class Board 
+	{
+	public:
+		bool checkWon(vector<vector<int> > board)
+		{
+			int i;
+			if (board[0][0] != 0 && board[0][0] == board[1][1] && board[1][1] == board[2][2])
+			{
+				if (board[0][0] == 1)
+				{
+					return true;
+				}
+				else if (board[0][0] == -1)
+				{
+					return false;
+				}
+			}
+			if (board[0][2] != 0 && board[0][2] == board[1][1] && board[1][1] == board[2][0])
+			{
+				if (board[1][1] == 1)
+				{
+					return true;
+				}
+				else if (board[1][1] == -1)
+				{
+					return false;
+				}
+			}
+			for (i = 0; i < 3; i++)
+			{
+				if (board[i][0] != 0 && board[i][0] == board[i][1] && board[i][0] == board[i][2])
+				{
+					if (board[i][0] == 1)
+					{
+						return true;
+					}
+					else if (board[i][0] == -1)
+					{
+						return false;
+					}
+				}
+				if (board[0][i] != 0 && board[0][i] == board[1][i] && board[0][i] == board[2][i])
+				{
+					if (board[0][i] == 1)
+					{
+						return true;
+					}
+					else if (board[0][i] == -1)
+					{
+						return false;
+					}
+				}
+			}
+			return false;
+		}
+	};
+	Board b;
+	vector<vector<int>> board;
+	board = { {1,0,1},{1,-1,-1},{1,-1,0} };
+	b.checkWon(board);
+	system("pause");
+	return 0;
+}
+
+
 void Down(int& sum, int num[]);
 void Right(int& sum, int num[])
 {
@@ -77,8 +289,6 @@ int main()
 	return 0;
 }
 
-
-#if 0
 int bitAdd(int a, int b)
 {
 	if (b == 0)

@@ -112,5 +112,4 @@ char WOL(char A[H][L], int h, int l)
 		}
 	}
 	return 'Q';
-
 }

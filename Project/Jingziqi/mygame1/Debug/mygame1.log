@@ -1,6 +1,2 @@
 ﻿  game.c
-c:\users\administrator\source\repos\mygame1\mygame1\game.c(43): warning C4029: 声明的形参表不同于定义
-  test.c
-c:\users\administrator\source\repos\mygame1\mygame1\test.c(22): warning C4013: “WOL”未定义；假设外部返回 int
-  正在生成代码...
-  mygame1.vcxproj -> C:\Users\Administrator\source\repos\mygame1\Debug\mygame1.exe
+  mygame1.vcxproj -> E:\MyCode\my_test_code\Project\Jingziqi\Debug\mygame1.exe

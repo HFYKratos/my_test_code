@@ -22,7 +22,7 @@ void game()
 		res = WOL(A, H, L);
 		if (res == 'C')
 		{
-			commove(A, H, L);
+			commove(A);
 			board(A, H, L);
 			res = WOL(A, H, L);
 		}

@@ -6,9 +6,10 @@
 #include<string.h>
 #include<time.h>
 
-#define H 3
-#define L 3
+#define H 5
+#define L 5
 
 void board(char A[H][L], int h , int l);
 void playermove(char A[H][L], int h, int l);
-void commove(char A[H][L],int h,int l);
+void commove(char A[H][L]);
+char WOL(char A[H][L], int h, int l);
