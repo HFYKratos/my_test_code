@@ -2,7 +2,530 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<stack>
 using namespace std;
+
+
+
+
+#if 0
+int main()
+{
+	string ret;
+	while (getline(cin, ret))//先把两手牌的内容接收起来
+	{
+		//然后把它们分成两手牌,注意题中给的条件，以'-‘分割’
+		int pos = ret.find('-');
+		string str1 = ret.substr(0, pos);
+		string str2 = ret.substr(pos + 1, ret.size() - pos - 1);
+		//接下来就是比较
+		string str3 = "joker JOKER";
+		if (str1 == str3 || str2 == str3)
+		{//如果有王炸，即王炸最大
+			cout << str3 << endl;
+			break;
+		}
+		//不能用size函数，它返回字符的个数，如果有10，则会出问题,
+		//这里可以用count函数,根据查找空格的个数来确定牌的个数
+		int l1 = count(str1.begin(), str1.end(), ' ') + 1;
+		int l2 = count(str2.begin(), str2.end(), ' ') + 1;
+		string ans = "345678910JQKA2";
+		string temp1 = str1.substr(0, str1.find(' '));
+		string temp2 = str2.substr(0, str1.find(' '));
+		if (l1 == l2)
+		{
+			//牌的张数相同的情况,就直接比较大小
+			if (ans.find(temp1) > ans.find(temp2))
+			{
+				cout << str1 << endl;
+			}
+			else {
+				cout << str2 << endl;
+			}
+		}
+		else {//牌数不同.看有没有炸弹
+			if (l1 == 4)
+				cout << str1 << endl;
+			else if (l2 == 4)
+				cout << str2 << endl;
+			else
+				cout << "ERROR" << endl;
+
+		}
+	}
+	system("pause");
+	return 0;
+}
+
+
+bool FindYs(int n)
+{
+	int sum = 1;
+	int size = n / 2 + 1;
+	for (int i = 2; i < size; i++)
+	{
+		if (n % i == 0)
+		{
+			sum += i;
+		}
+	}
+	if (sum == n)
+	{
+		return true;
+	}
+	return false;
+}
+
+int main()
+{
+	int num = 0;
+	int count = 0;
+	cin >> num;
+	if (num < 0 || num > 500000)
+	{
+		return -1;
+	}
+	if (num == 1)
+	{
+		cout << 0 << endl;
+	}
+	for (int i = 2; i <= num; i++)
+	{
+		if (FindYs(i))
+		{
+			count++;
+		}
+	}
+	cout << count << endl;
+	system("pause");
+	return 0;
+}
+
+struct TreeNode
+{
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x = 0)
+		: val(x),
+		left(NULL),
+		right(NULL)
+	{}
+};
+class Solution {
+public:
+	bool find(vector<vector<int>>& Order, TreeNode* root, int level)
+	{
+		if (root == NULL)
+		{
+			return true;
+		}
+		if (level >= Order.size())
+		{
+			Order.resize(level + 1);
+		}
+		Order[level].push_back(root->val);
+		level++;
+		find(Order, root->left, level);
+		find(Order, root->right, level);
+		return true;
+	}
+
+	vector<vector<int>> levelOrder(TreeNode* root)
+	{
+		int level = 0;
+		vector<vector<int>> Order;
+		Order.resize(level + 1);
+		Order[level].push_back(root->val);
+		level++;
+		find(Order, root->left, level);
+		find(Order, root->right, level);
+		return Order;
+	}
+};
+
+int main()
+{
+	Solution a;
+	TreeNode t(1);
+	TreeNode* root = &t;
+	root->left = new TreeNode;
+	root->left->val = 2;
+	root->left->left = new TreeNode;
+	root->left->left->val = 4;
+	root->left->right = new TreeNode;
+	root->left->right->val = 5;
+	//root->left->right->left = new TreeNode;
+	//root->left->right->left->val = 5;
+	//root->left->right->right = new TreeNode;
+	//root->left->right->right->val = 4;
+
+	root->right = new TreeNode;
+	root->right->val = 3;
+	//root->right->left = new TreeNode;
+	//root->right->left->val = 15;
+	//root->right->right = new TreeNode;
+	//root->right->right->val = 7;
+
+	a.levelOrder(root);
+	return 0;
+}
+
+struct TreeNode 
+{
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode (int x = 0) 
+		: val(x),
+		left(NULL),
+		right(NULL) 
+	{}
+};
+
+class Solution {
+public:
+	bool getPath(TreeNode* root, TreeNode* p, stack<TreeNode*>&st)
+	{
+		if (root == nullptr)
+			return false;
+		st.push(root);
+		if (root == p)
+		{
+			return true;
+		}
+		if (getPath(root->left, p, st))
+		{
+			return true;
+		}
+		if (getPath(root->right, p, st))
+		{
+			return true;
+		}
+		st.pop();
+		return false;
+	}
+
+	TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
+	{
+		stack<TreeNode*> path1;
+		stack<TreeNode*> path2;
+		getPath(root, p, path1);
+		getPath(root, q, path2);
+		while (path1.size() != path2.size())
+		{
+			while (path1.size() > path2.size())
+			{
+				path1.pop();
+			}
+			while (path1.size() < path2.size())
+			{
+				path2.pop();
+			}
+		}
+		while (!path1.empty())
+		{
+			if (path1.top() == path2.top())
+			{
+				return path1.top();
+			}
+			else
+			{
+				path1.pop();
+				path2.pop();
+			}
+		}
+		return path1.top();
+}
+};
+
+int main()
+{
+	Solution a;
+	TreeNode t(3);
+	TreeNode* root = &t;
+	root->left = new TreeNode;
+	root->left->val = 5;
+	TreeNode* p = root->left;
+	root->left->left = new TreeNode;
+	root->left->left->val = 6;
+	root->left->right = new TreeNode;
+	root->left->right->val = 2;
+	root->left->right->left = new TreeNode;
+	root->left->right->left->val = 7;
+	root->left->right->right = new TreeNode;
+	root->left->right->right->val = 4;
+	TreeNode* q = root->left->right->right;
+
+	root->right = new TreeNode;
+	root->right->val = 1;
+	root->right->left = new TreeNode;
+	root->right->left->val = 0;
+	root->right->right = new TreeNode;
+	root->right->right->val = 8;
+
+	a.lowestCommonAncestor(root, p, q);
+	return 0;
+}
+
+class Gloves
+{
+public:
+	int findMinimum(int n, vector<int> left, vector<int> right) {
+		int left_sum = 0, left_min = INT_MAX;
+		int right_sum = 0, right_min = INT_MAX;
+		int sum = 0;
+		// 遍历每一种颜色的左右手套序列
+		for (int i = 0; i < n; i++) {
+			//对于有0存在的颜色手套，累加
+			if (left[i] * right[i] == 0)
+				sum += left[i] + right[i];
+			// 对于左右手都有的颜色手套，执行累加 - 最小值 +1
+			// 找到最小值和总数
+			else {
+				left_sum += left[i];
+				right_sum += right[i];
+				left_min = min(left_min, left[i]);
+				right_min = min(right_min, right[i]);
+			}
+		}
+		//结果为有左右都有数量的手套序列的结果+有0存在的手套数+最后再加一肯定就能保证了
+		return sum +
+			min(left_sum - left_min + 1, right_sum - right_min + 1) + 1;
+	}
+};
+
+int main()
+{
+	Gloves g;
+	int n = 4;
+	vector<int> left = { 0,7,1,6 };
+	vector<int> right = { 1,5,0,6 };
+	g.findMinimum(n, left, right);
+	return 0;
+}
+
+int findNumberOf1(int num)
+{
+	int count = 0;
+	int flag = 1;
+	while (flag)
+	{
+		if (num & flag)
+		{
+			count++;
+		
+		}
+		flag = flag << 1;
+	}
+	return count;
+}
+
+int main()
+{
+	int num;
+	cin >> num;
+	int ret = findNumberOf1(num);
+	cout << ret << endl;
+	return 0;
+}
+
+int main()
+{
+	size_t n, m, count = 0;
+	cin >> n >> m;
+	if (n < 4 && n > 100000 && m < n && m > 100000)
+	{
+		return 0;
+	}
+	while (n != m)
+	{
+		vector<int> num;
+		for (size_t i = 2; i < n; i++)
+		{
+			size_t j = i;
+			for (j = i; j <= n - i; j++)
+			{
+				if (i * j == n)
+				{
+					if (i != j)
+					{
+						num.push_back(j);
+					}
+					num.push_back(i);
+				}
+				if (i * j > n)
+				{
+					break;
+				}
+			}
+		}
+		if (n + num[0] > m)
+		{
+			for (size_t i = 0; i < num.size(); i++)
+			{
+				if (n + num[i] == m)
+				{
+					n += num[i];
+					count++;
+					break;
+				}
+			}
+		}
+		else
+		{
+			n += num[0];
+			count++;
+		}
+	}
+	cout << count << endl;
+	return 0;
+}
+
+
+int main()
+{
+	vector<string> strs;
+	size_t size = 0;
+	char str[100];
+	cin.getline(str, 100);
+	strs.resize(++size);
+	strs[0] = str;
+	string::iterator it = strs[0].begin();
+	while (it != strs[0].end())
+	{
+		if (*it == '"')
+		{
+			it++;
+			strs.resize(++size);
+			while (it != strs[0].end() && *it != '"')
+			{
+				strs[size - 1].push_back(*it);
+				it++;
+			}
+			it++;
+		}
+		if (*it != ' ')
+		{
+			strs.resize(++size);
+		}
+		while (it != strs[0].end() && *it != ' ')
+		{
+			strs[size - 1].push_back(*it);
+			it++;
+		}
+		if (it != strs[0].end())
+			it++;
+	}
+	cout << strs.size() - 1 << endl;
+	for (size_t i = 1; i < strs.size(); i++)
+	{
+		cout << strs[i].c_str() << endl;
+	}
+	return 0;
+}
+
+
+int main()
+{
+	int num = 3183, max = 1, size = 0;
+	//cin >> num;
+	if (num == 0)
+	{
+		return 0;
+	}
+	while (num >= max)
+	{
+		max = max * 2;
+		size++;
+	}
+	max = max / 2;
+	int* ret = new int[size];
+	for (int j = 0; j < size; j++)
+	{
+		ret[j] = 0;
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (num - max >= 0)
+		{
+			ret[i] = 1;
+			num -= max;
+			max /= 2;
+		}
+		else
+		{
+			max /= 2;
+		}
+	}
+	int count = 0;
+	int maxc = 0;
+	for (int i = 0; i < size - 1; i++)
+	{
+		while (i < size - 1 && ret[i] == ret[i + 1] && ret[i] == 1)
+		{
+			if (count == 0)
+			{
+				count = 1;
+			}
+			count++;
+			i++;
+		}
+		i++;
+		maxc = maxc < count ? count : maxc;
+		count = 0;
+	}
+	cout << maxc << endl;
+	return 0;
+}
+
+
+int ksize(int x)
+{
+	int k = 0;
+	int num = 1;
+	while (x >= num)
+	{
+		num *= 2;
+		k++;
+	}
+	return k;
+}
+
+int getLCA(int a, int b)
+{
+	int max = a > b ? a : b;
+	int min = a > b ? b : a;
+	int maxk = ksize(max);
+	int mink = ksize(min);
+	while (max / 2 != 1)
+	{
+		while (maxk != mink)
+		{
+			if (max / 2 == min)
+			{
+				return min;
+			}
+			max /= 2;
+			maxk--;
+		}
+		if ((max / 2) == (min / 2))
+		{
+			return max / 2;
+		}
+		max /= 2;
+		min /= 2;
+	}
+	return 1;
+}
+
+int main()
+{
+	getLCA(16, 5);
+	system("pause");
+	return 0;
+}
+
 
 void length(int& score, const string pw)
 {
@@ -148,7 +671,7 @@ int main()
 	system("pause");
 	return 0;
 }
-#if 0
+
 int main()
 {
 	class Board 
@@ -624,7 +1147,6 @@ int add(int num, int n, const int *arr)
 	}
 	return max;
 }
-
 int main()
 {
 	int* arr;
