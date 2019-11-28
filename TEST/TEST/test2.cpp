@@ -5,10 +5,119 @@
 #include<stack>
 using namespace std;
 
-
-
-
+int main()
+{
+	int m = 0;
+	cin >> m;
+	vector<int> rabbit = { 0,1,0 };
+	while (--m)
+	{
+		rabbit[0] += rabbit[2];
+		rabbit[2] = 0;
+		rabbit[2] = rabbit[1];
+		rabbit[1] = 0;
+		rabbit[1] += rabbit[0];
+	}
+	int sum = rabbit[0] + rabbit[1] + rabbit[2];
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
 #if 0
+int main()
+{
+	int flag = 0;
+	string add1;
+	string add2;
+	getline(cin, add1);
+	getline(cin, add2);
+	if (add1.size() < add2.size())
+	{
+		swap(add1, add2);
+	}
+	string::reverse_iterator it1 = add1.rbegin();
+	string::reverse_iterator it2 = add2.rbegin();
+	while (it1 != add1.rend())
+	{
+		while (it2 != add2.rend())
+		{
+			int sum = *it1 + *it2 - 2 * '0';
+			if (flag == 1)
+			{
+				flag = 0;
+				sum += 1;
+			}
+			if (sum >= 10)
+			{
+				flag = 1;
+				sum -= 10;
+			}
+			*it1 = sum + '0';
+			it1++;
+			it2++;
+		}
+		if (it1 == add1.rend() || flag == 0)
+		{
+			break;
+		}
+		int sum = *it1 + 1 - '0';
+		flag = 0;
+		if (sum >= 10)
+		{
+			flag = 1;
+			sum -= 10;
+		}
+		*it1 = sum + '0';
+		it1++;
+	}
+	if (flag == 1)
+	{
+		add1.insert(add1.begin(), '1');
+	}
+	cout << add1 << endl;
+	system("pause");
+	return 0;
+}
+
+vector<vector<int>> generate(int numRows)
+{
+	vector<vector<int>> num;
+	num.resize(numRows);
+	for (int i = 0; i < numRows; ++i)
+	{
+		num[i].resize(2 * i + 3, 0);
+		int sz = 2 * i + 1;
+		num[i][0] = 1;
+		if (i >= 1)
+		{
+			num[i][1] = i;
+		}
+		for (int j = 2; j < sz; ++j)
+		{
+			num[i][j] = num[i - 1][j] + num[i - 1][j - 1] + num[i - 1][j - 2];
+		}
+	}
+	return num;
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	vector<vector<int>> tran = generate(n);
+	for (int i = 0; i < n; i++)
+	{
+		if (tran[n - 1][i] % 2 == 0)
+		{
+			cout << i + 1 << endl;
+			return 0;
+		}
+	}
+	cout << -1 << endl;
+	return 0;
+}
+
+
 int main()
 {
 	string ret;

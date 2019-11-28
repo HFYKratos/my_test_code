@@ -8,6 +8,39 @@
 #include<string.h>
 #include<stdbool.h>
 #include<malloc.h>
+
+
+#if 0
+int z(char c)
+{
+	return(c == ' ' ? 0 : c - '0');
+}
+void main() 
+{
+	char a[81], b[81], s[81];
+	int n, flag;
+	scanf("%s", s);
+	sprintf(a, "%80s", s);
+	scanf("%s", s);
+	sprintf(b, "%80s", s);
+	for (flag = 0, n = 79; n >= 0; n--, flag /= 10)
+	{
+		s[n] = (flag = z(a[n]) + z(b[n]) + flag) % 10;
+	}
+	for (s[80] = flag = n = 0; n < 80; n++)
+	{
+		if (flag || s[n])
+		{
+			s[n] += '0';
+			flag = 1;
+		}
+		else
+			s[n] = ' ';
+	}
+	printf("%s\n", s);
+}
+#endif
+
 //
 //char *mystrcpy(char *des, const char *str)
 //{
