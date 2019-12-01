@@ -6,6 +6,38 @@
 #include<sstream>
 using namespace std;
 
+#if 0
+bool IsPopOrder(vector<int> pushV, vector<int> popV)
+{
+	stack<int> s1;
+	stack<int> s2;
+	for (size_t i = popV.size(); i > 0; i--)
+	{
+		s2.push(popV[i - 1]);
+	}
+	for (size_t i = 0; i < pushV.size(); i++)
+	{
+		s1.push(pushV[i]);
+		while (!s1.empty() && !s2.empty() && s1.top() == s2.top())
+		{
+			s1.pop();
+			s2.pop();
+		}
+	}
+	if (s1.empty() == true)
+	{
+		return true;
+	}
+	return false;
+}
+int main()
+{
+	vector<int> pushV = { 1,2,3,4,5 };
+	vector<int> popV = { 4,5,3,2,1 };
+	IsPopOrder(pushV, popV);
+	return 0;
+}
+
 void Up(int& up, int& down, int& cur, const int songs)
 {
 	if (cur == 0)
@@ -69,11 +101,11 @@ int main()
 	string command;
 	cin >> songs;
 	cin >> command;
-	if (songs <= 0 || songs > 10)
+	vector<int> board;
+	for (size_t i = 0; i < songs; i++)
 	{
-		return 0;
+		board.push_back(i + 1);
 	}
-	vector<int> board = { 1,2,3,4,5,6,7,8,9,10 };
 	int cur = 0, up = 0;
 	int down = (songs < 4) ? songs - 1 : 3;
 	string::iterator it = command.begin();
@@ -94,7 +126,34 @@ int main()
 	return 0;
 }
 
-#if 0
+
+int main()
+{
+	string strs = "a";
+	while (cin >> strs)
+	{
+		auto it = strs.begin();
+		while (it != strs.end())
+		{
+			auto nit = it + 1;
+			while (nit != strs.end())
+			{
+				while (nit != strs.end() && *it == *nit)
+				{
+					strs.erase(nit);
+				}
+				if (nit != strs.end())
+				{
+					nit++;
+				}
+			}
+			it++;
+		}
+		cout << strs << endl;
+	}
+	return 0;
+}
+
 vector<int> WashCard(vector<int> arr, int k)
 {
 	stack<int> s1;
@@ -487,6 +546,12 @@ int main()
 	return 0;
 }
 
+//寻找最大公因数
+//
+//
+//
+//
+//
 
 bool FindYs(int n)
 {
@@ -505,7 +570,6 @@ bool FindYs(int n)
 	}
 	return false;
 }
-
 int main()
 {
 	int num = 0;
@@ -573,7 +637,17 @@ public:
 		return Order;
 	}
 };
-
+//单链表节点
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 int main()
 {
 	Solution a;
