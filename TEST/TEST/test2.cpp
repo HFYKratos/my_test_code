@@ -3,7 +3,328 @@
 #include<string>
 #include<vector>
 #include<stack>
+#include<sstream>
 using namespace std;
+
+void Up(int& up, int& down, int& cur, const int songs)
+{
+	if (cur == 0)
+	{
+		if (up == 0)
+		{
+			down = songs - 1;
+			up = (songs < 4) ? 0 : down - 3;
+			cur = (songs < 4) ? songs - 1 : 3;
+		}
+		else
+		{
+			up -= 1;
+			down -= 1;
+		}
+	}
+	else
+	{
+		cur--;
+	}
+}
+
+void Down(int& up, int& down, int& cur, const int songs)
+{
+	int bottle = (songs < 4) ? songs - 1 : 3;
+	if (cur == bottle)
+	{
+		if (down == songs - 1)
+		{
+			up = 0;
+			down = (songs < 4) ? songs - 1 : 3;
+			cur = 0;
+		}
+		else
+		{
+			up += 1;
+			down += 1;
+		}
+	}
+	else
+	{
+		cur++;
+	}
+}
+
+void Print(const int up, const int down, vector<int> board, int songs)
+{
+	int i = 0;
+	int bottle = (songs < 4) ? songs : 4;
+	while (i < bottle)
+	{
+		cout << board[up + i] << " ";
+		i++;
+	}
+	cout << endl;
+}
+
+int main()
+{
+	int songs;
+	string command;
+	cin >> songs;
+	cin >> command;
+	if (songs <= 0 || songs > 10)
+	{
+		return 0;
+	}
+	vector<int> board = { 1,2,3,4,5,6,7,8,9,10 };
+	int cur = 0, up = 0;
+	int down = (songs < 4) ? songs - 1 : 3;
+	string::iterator it = command.begin();
+	while (it != command.end())
+	{
+		if (*it == 'U')
+		{
+			Up(up, down, cur, songs);
+		}
+		else
+		{
+			Down(up, down, cur, songs);
+		}
+		it++;
+	}
+	Print(up, down, board, songs);
+	cout << board[up + cur] << endl;
+	return 0;
+}
+
+#if 0
+vector<int> WashCard(vector<int> arr, int k)
+{
+	stack<int> s1;
+	stack<int> s2;
+	vector<int> wash;
+	while (k--)
+	{
+		wash.resize(0);
+		for (size_t i = 0; i < arr.size(); i++)
+		{
+			if (i < arr.size() / 2)
+			{
+				s1.push(arr[i]);
+			}
+			else
+			{
+				s2.push(arr[i]);
+			}
+		}
+		for (size_t i = 1; i <= arr.size(); i++)
+		{
+			if (i % 2 == 0)
+			{
+				wash.insert(wash.begin(), s1.top());
+				s1.pop();
+			}
+			else
+			{
+				wash.insert(wash.begin(), s2.top());
+				s2.pop();
+			}
+		}
+		arr = wash;
+	}
+	return wash;
+}
+
+void PrintArr(vector<vector<int>> arr)
+{
+	for (size_t i = 0; i < arr.size(); i++)
+	{
+		for (size_t j = 0; j < arr[i].size(); j++)
+		{
+			cout << arr[i][j] << " ";
+		}
+	}
+	cout << endl;
+}
+
+int main()
+{
+	string tmp;
+	vector<int> input;
+	getline(cin, tmp);
+	stringstream stringin(tmp);
+	int num;
+	while (stringin >> num) 
+	{
+		input.push_back(num);
+	}
+	vector<vector<int>> arr;
+	vector<int>::iterator it = input.begin();
+	int count = 0;
+	arr.resize(*it++);
+	while (it != input.end())
+	{
+		arr[count].resize(2 * (*it++));
+		int k = *it++;
+		size_t i = 0;
+		for (i = 0; i < arr[count].size(); i++)
+		{
+			arr[count][i] = *it;
+			it++;
+		}
+		arr[count] = WashCard(arr[count], k);
+		count++;
+	}
+	PrintArr(arr);
+	system("pause");
+	return 0;
+}
+
+
+int main()
+{
+	string s;
+	string b;
+	string ret;
+	unsigned int maxsize = 0;
+	cin >> s >> b;
+	if (s.size() > b.size())
+	{
+		swap(s, b);
+	}
+	string::iterator sit = s.begin();
+	string::iterator bit = b.begin();
+	while (sit != s.end())
+	{
+		string::iterator tit = bit;
+		while (bit != b.end())
+		{
+			string::iterator tit1 = sit;
+			string::iterator tit2 = bit;
+			string tmp;
+			while (sit != s.end() && bit != b.end() && *bit == *sit)
+			{
+				tmp.push_back(*bit);
+				bit++;
+				sit++;
+			}
+			if (tmp.size() > 1 && tmp.size() > maxsize)
+			{
+				maxsize = tmp.size();
+				ret = tmp;
+			}
+			sit = tit1;
+			bit = tit2;
+			if (bit != b.end())
+			{
+				bit++;
+			}
+		}
+		bit = tit;
+		sit++;
+	}
+	cout << ret.size() << endl;
+	system("pause");
+	return 0;
+}
+
+int main()
+{
+	string str;
+	cin >> str;
+	string::const_reverse_iterator rit = str.rbegin();
+	while (rit != str.rend())
+	{
+		cout << *rit;
+		rit++;
+	}
+	cout << endl;
+	system("pause");
+	return 0;
+}
+
+int main()
+{
+	string s;
+	string b;
+	string ret;
+	unsigned maxsize = 0;
+	cin >> s;
+	cin >> b;
+	if (s.size() > b.size())
+	{
+		swap(s, b);
+	}
+	string::iterator sit = s.begin();
+	string::iterator bit = b.begin();
+	while (sit != s.end())
+	{
+		string::iterator tit = bit;
+		while (bit != b.end())
+		{
+			string::iterator tit1 = sit;
+			string::iterator tit2 = bit;
+			string tmp;
+			while (sit != s.end() && bit != b.end() && *bit == *sit)
+			{
+				tmp.push_back(*bit);
+				bit++;
+				sit++;
+			}
+			if (tmp.size() > 1 && tmp.size() > maxsize)
+			{
+				maxsize = tmp.size();
+				ret = tmp;
+			}
+			sit = tit1;
+			bit = tit2;
+			if (bit != b.end())
+			{
+				bit++;
+			}
+		}
+		bit = tit;
+		sit++;
+	}
+	cout << ret << endl;
+	system("pause");
+	return 0;
+}
+
+int sell(int num)
+{
+	int ret = 0;
+	while (num >= 3)
+	{
+		ret++;
+		num -= 2;
+	}
+	if (num == 2)
+	{
+		ret++;
+	}
+	return ret;
+}
+
+int main()
+{
+	vector<int> ret;
+	int tmp = 0;
+	while (cin >> tmp)
+	{
+		if (tmp == 0)
+		{
+			break;
+		}
+		if (tmp < 1 || tmp > 100)
+		{
+			continue;
+		}
+		ret.push_back(tmp);
+	}
+	for (auto const& e : ret)
+	{
+		cout << sell(e) << endl;
+	}
+	return 0;
+}
 
 int main()
 {
@@ -23,7 +344,7 @@ int main()
 	system("pause");
 	return 0;
 }
-#if 0
+
 int main()
 {
 	int flag = 0;
