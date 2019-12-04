@@ -8,6 +8,393 @@ using namespace std;
 
 int main()
 {
+	string num;
+	while (cin >> num)
+	{
+		int cur = 0;
+		while (num.size() > 1)
+		{
+			cur = 0;
+			for (const auto& e : num)
+			{
+				cur += e - '0';
+			}
+			num = to_string(cur);
+		}
+		cout << cur << endl;
+	}
+	return 0;
+}
+
+
+#if 0
+void square(vector<vector<size_t>>& num)
+{
+	vector<vector<size_t>> num2 = { {1,1},{1,0} };
+	size_t a = num[0][0] * num2[0][0] + num[1][0] * num2[0][1],
+		b = num[0][0] * num2[0][1] + num[0][1] * num2[1][1],
+		c = num[1][0] * num2[0][0] + num[1][1] * num2[1][0],
+		d = num[1][0] * num2[0][1] + num[1][1] * num2[1][1];
+	num[0][0] = a;
+	num[0][1] = b;
+	num[1][0] = c;
+	num[1][1] = d;
+}
+
+int main()
+{
+	size_t num;
+	while (cin >> num)
+	{
+		vector<size_t> count;
+		for (size_t i = 0; i < num; i++)
+		{
+			size_t n = 0;
+			cin >> n;
+			count.push_back(n);
+		}
+		for (size_t i = 0; i < num; i++)
+		{
+			vector<vector<size_t>> number = { {1,1},{1,0} };
+			for (size_t j = 1; j < count[i]; j++)
+			{
+				square(number);
+			}
+			vector<int> ret;
+			ret.resize(5);
+			int x = 0;
+			while (number[0][0] != 0)
+			{
+				if (x == 4)
+				{
+					break;
+				}
+				ret[x] = number[0][0] % 10;
+				number[0][0] /= 10;
+
+				x++;
+			}
+			for (int i = 3; i >= 0; i--)
+			{
+				cout << ret[i];
+			}
+		}
+		cout << endl;
+	}
+	return 0;
+}
+
+string ret;
+string Down(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command);
+string Up(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command);
+string Left(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command);
+string Right(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command)
+{
+	command += 'R';
+	if (i == Kratos_ways.size() - 2 && j == Kratos_ways[i].size() - 2)
+	{
+		ret = command;
+	}
+	if (Kratos_ways[i][j + 1] == 0)
+	{
+		string tmp = command;
+		Right(Kratos_ways, i, j + 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i + 1][j] == 0)
+	{
+		string tmp = command;
+		Down(Kratos_ways, i + 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i - 1][j] == 0)
+	{
+		string tmp = command;
+		Up(Kratos_ways, i - 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	return ret;
+}
+string Left(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command)
+{
+	command += 'L';
+	if (i == Kratos_ways.size() - 2 && j == Kratos_ways[i].size() - 2)
+	{
+		ret = command;
+	}
+	if (Kratos_ways[i][j - 1] == 0)
+	{
+		string tmp = command;
+		Left(Kratos_ways, i, j - 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i + 1][j] == 0)
+	{
+		string tmp = command;
+		Down(Kratos_ways, i + 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i - 1][j] == 0)
+	{
+		string tmp = command;
+		Up(Kratos_ways, i - 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	return ret;
+}
+string Down(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command)
+{
+	command += 'D';
+	if (i == Kratos_ways.size() - 2 && j == Kratos_ways[i].size() - 2)
+	{
+		ret = command;	
+	}
+	if (Kratos_ways[i][j + 1] == 0)
+	{
+		string tmp = command;
+		Right(Kratos_ways, i, j + 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i][j - 1] == 0)
+	{
+		string tmp = command;
+		Left(Kratos_ways, i, j - 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i + 1][j] == 0)
+	{
+		string tmp = command;
+		Down(Kratos_ways, i + 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	return ret;
+}
+string Up(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command)
+{
+	command += 'U';
+	if (i == Kratos_ways.size() - 2 && j == Kratos_ways[i].size() - 2)
+	{
+		ret = command;
+	}
+	if (Kratos_ways[i][j + 1] == 0)
+	{
+		string tmp = command;
+		Right(Kratos_ways, i, j + 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i][j - 1] == 0)
+	{
+		string tmp = command;
+		Left(Kratos_ways, i, j - 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	if (Kratos_ways[i - 1][j] == 0)
+	{
+		string tmp = command;
+		Up(Kratos_ways, i - 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = tmp;
+	}
+	return ret;
+}
+string Find(vector<vector<int>> Kratos_ways, size_t i, size_t j, string command)
+{
+	if (i == Kratos_ways.size() - 2 && j == Kratos_ways[i].size() - 2)
+	{
+		ret = command;
+	}
+	if (Kratos_ways[i][j + 1] == 0)
+	{
+		Right(Kratos_ways, i, j + 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = "";
+	}
+	if (Kratos_ways[i][j - 1] == 0)
+	{
+		Left(Kratos_ways, i, j - 1, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = "";
+	}
+	if (Kratos_ways[i + 1][j] == 0)
+	{
+		Down(Kratos_ways, i + 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = "";
+	}
+	if (Kratos_ways[i - 1][j] == 0)
+	{
+		Up(Kratos_ways, i - 1, j, command);
+		if (ret != "")
+		{
+			return ret;
+		}
+		command = "";
+	}
+	return ret;
+}
+int main()
+{
+	size_t n, m;
+	while (cin >> n >> m)
+	{
+		vector<vector<int>> Kratos_ways;
+		Kratos_ways.resize(n + 2);
+		for (size_t i = 0; i < n + 2; i++)
+		{
+			Kratos_ways[i].resize(m + 2, 1);
+			for (size_t j = 1; i > 0 && i < n + 1 && j <= m; j++)
+			{
+				cin >> Kratos_ways[i][j];
+			}
+		}
+		ret = Find(Kratos_ways, 1, 1, "");
+		cout << "(0,0)" << endl;
+		int i = 0, j = 0;
+		for (const auto& e : ret)
+		{
+			if (e == 'R')
+			{
+				j++;
+				cout << "(" << i << "," << j << ")" << endl;
+			}
+			if (e == 'L')
+			{
+				j--;
+				cout << "(" << i << "," << j << ")" << endl;
+			}
+			if (e == 'U')
+			{
+				i--;
+				cout << "(" << i << "," << j << ")" << endl;
+			}
+			if (e == 'D')
+			{
+				i++;
+				cout << "(" << i << "," << j << ")" << endl;
+			}
+		}
+		ret = "";
+	}
+	return 0;
+}
+
+void Down(vector<vector<int> > board, size_t i, size_t j, int sum, int& max);
+void Right(vector<vector<int> > board, size_t i, size_t j, int sum,int& max)
+{
+	j++;
+	sum += board[i][j];
+	if (i == board.size() - 1 && j == board[i].size() - 1)
+	{
+		if (max < sum)
+		{
+			max = sum;
+		}
+	}
+	if (j != board[i].size() - 1)
+	{
+		Right(board, i, j, sum, max);
+	}
+	if (i != board.size() - 1)
+	{
+		Down(board, i, j, sum, max);
+	}
+}
+void Down(vector<vector<int> > board, size_t i, size_t j, int sum,int& max)
+{
+	i++;
+	sum += board[i][j];
+	if (i == board.size() - 1 && j == board[i].size() - 1)
+	{
+		if (max < sum)
+		{
+			max = sum;
+		}
+	}
+	if (j != board[i].size() - 1)
+	{
+		Right(board, i, j, sum, max);
+	}
+	if (i != board.size() - 1)
+	{
+		Down(board, i, j, sum, max);
+	}	
+}
+int getMost(vector<vector<int> > board)
+{
+	int sum = board[0][0];
+	int max = 0;
+	size_t i = 0, j = 0;
+	Right(board, i, j, sum, max);
+	Down(board, i, j, sum, max);
+	return max;
+}
+int main()
+{
+	vector<vector<int> > board;
+	board.resize(6, { 1,2,3,4,5,6 });
+	getMost(board);
+	return 0;
+}
+
+
+int main()
+{
 	string s1, s2;
 	while (cin >> s1 >> s2)
 	{
@@ -36,7 +423,6 @@ int main()
 }
 
 
-#if 0
 int getValue(vector<int> gifts, int n)
 {
 	int max = INT32_MIN;
