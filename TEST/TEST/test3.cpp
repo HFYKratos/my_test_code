@@ -6,6 +6,68 @@
 #include<sstream>
 using namespace std;
 
+#if 0
+int main()
+{
+	float n, r;
+	while (cin >> n >> r)
+	{
+		if (n <= 2 * 3.14 * r)
+		{
+			cout << "Yes" << endl;
+		}
+		else
+		{
+			cout << "No" << endl;
+		}
+	}
+	return 0;
+}
+
+int Jump(int num)
+{
+	if (num == 1)
+	{
+		return 1;
+	}
+	if (num == 2)
+	{
+		return 2;
+	}
+	int count = 1;
+	for (int i = 1; i < num; i++)
+	{
+		count += Jump(num - i);
+	}
+	return count;
+}
+
+int jumpFloorII(int number)
+{
+	if (number == 1)
+	{
+		return 1;
+	}
+	if (number == 2)
+	{
+		return 2;
+	}
+	int count = 1;
+	for (int i = 1; i < number; i++)
+	{
+		count += Jump(number - i);
+	}
+	cout << count << endl;
+	return 0;
+}
+
+int main()
+{
+	int num = 3;
+	cout << jumpFloorII(4) << endl;
+	return 0;
+}
+
 int main()
 {
 	string num;
@@ -26,8 +88,6 @@ int main()
 	return 0;
 }
 
-
-#if 0
 void square(vector<vector<size_t>>& num)
 {
 	vector<vector<size_t>> num2 = { {1,1},{1,0} };
