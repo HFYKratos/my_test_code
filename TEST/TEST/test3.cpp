@@ -4,9 +4,86 @@
 #include<vector>
 #include<stack>
 #include<sstream>
+#include<algorithm>
 using namespace std;
 
+class Info:
+{
+public:
+
+}
+
+int main()
+{
+	return 0;
+}
+
 #if 0
+int main()
+{
+	size_t n;
+	while (cin >> n)
+	{
+		size_t x = pow(5, n) - 4;
+		size_t y = pow(4, n) + n - 4;
+		if (n == 0)
+			break;
+		else
+		{
+			cout << x << " " << y << endl;
+		}
+	}
+	return 0;
+}
+
+void oddInOddEvenInEven(vector<int>& arr, int len)
+{
+	int i = 0, j = 1;
+	while (i < len && j < len)
+	{
+		if (arr[i] % 2 != 0 && arr[j] % 2 == 0)
+		{
+			swap(arr[i], arr[j]);
+			i += 2;
+			j += 2;
+			continue;
+		}
+		if (arr[i] % 2 == 0)
+		{
+			i += 2;
+		}
+		if (arr[j] % 2 != 0)
+		{
+			j += 2;
+		}
+	}
+}
+
+int main()
+{
+	vector<int> arr = { 7,7,9,5,1,6,7,9,3,2,6 };
+	int len = arr.size();
+	oddInOddEvenInEven(arr, len);
+	return 0;
+}
+
+int main()
+{
+	int a, b, c;
+	while (cin >> a >> b >> c)
+	{
+		if ((a + b > c) && (a + c > b) && (b + c > a))
+		{
+			cout << "Yes" << endl;
+		}
+		else
+		{
+			cout << "No" << endl;
+		}
+	}
+	return 0;
+}
+
 int main()
 {
 	float n, r;
