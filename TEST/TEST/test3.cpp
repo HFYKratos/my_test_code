@@ -6,19 +6,71 @@
 #include<sstream>
 #include<algorithm>
 using namespace std;
-
-class Info:
+//有假币
+int main()
 {
-public:
+	int num = 0;
+	while (cin >> num)
+	{
+		int count = 1;
+		if (num == 1)
+		{
+			count = 0;
+		}
+		while (num > 4)
+		{
+			num /= 2;
+			count++;
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
+#if 0
+//求正数数组的最小不可组成和
+int getFirstUnFormedNum(vector<int> arr, int len) 
+{
+	int sum = 0, min = arr[0];
+	for (int i = 0; i < len; ++i)
+	{
+		sum += arr[i];
+		if (arr[i] < min)
+			min = arr[i];
+	}
+	vector<int> dp(sum + 1, 0);
+	for (int i = 0; i < len; ++i)
+	{
+		for (int j = sum; j >= arr[i]; --j)
+		{
+			if (dp[j - arr[i]] + arr[i] > dp[j])
+			{
+				dp[j] = dp[j - arr[i]] + arr[i];
+			}
+		}
+	}
 
+	for (int i = min; i <= sum; ++i)
+	{
+		if (i != dp[i])
+			return i;
+	}
+	return sum + 1;
 }
 
 int main()
 {
+	vector<int> arr = { 3,2,4 };
+	int len = arr.size();
+	int ret = getFirstUnFormedNum(arr, len);
 	return 0;
 }
 
-#if 0
+int main()
+{
+	
+	return 0;
+}
+
 int main()
 {
 	size_t n;
