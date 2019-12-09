@@ -5,7 +5,57 @@
 #include<stack>
 #include<sstream>
 #include<algorithm>
+#include<cmath>
 using namespace std;
+
+
+
+#if 0
+//因子个数
+int main() {
+	int n, k, i;
+	while (cin >> n) {
+		k = 0;
+		for (i = 2; i <= sqrt(n); i++)
+			if (n % i == 0) {
+				while (n % i == 0)n = n / i;
+				k++;
+			}
+		if (n != 1)k++;
+		cout << k << endl;
+	}
+	return 0;
+}
+
+//最难的问题
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		auto it = str.begin();
+		while (it != str.end())
+		{
+			if (*it == ' ')
+			{
+				it++;
+			}
+			else if (*it <= 'E')
+			{
+				*it += 21;
+				it++;
+			}
+			else
+			{
+				*it -= 5;
+				it++;
+			}
+		}
+		cout << str << endl;
+	}
+	return 0;
+}
+
 //有假币
 int main()
 {
@@ -26,7 +76,7 @@ int main()
 	}
 	return 0;
 }
-#if 0
+
 //求正数数组的最小不可组成和
 int getFirstUnFormedNum(vector<int> arr, int len) 
 {
