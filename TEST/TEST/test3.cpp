@@ -6,11 +6,446 @@
 #include<sstream>
 #include<algorithm>
 #include<cmath>
+#include<memory>
+#include<map>
+#include<set>
 using namespace std;
 
 
 
+//给定一个字符串 S，返回 “反转后的” 字符串，其中不是字母的字符都保留在原地，而所有字母的位置发生反转。
+void Swaq(char& a, char& b)
+{
+	char t = a;
+	a = b;
+	b = t;
+}
+string reverseOnlyLetters(string S)
+{
+	size_t size = S.size();
+	if (size == 0)
+	{
+		return S;
+	}
+	for (size_t i = 0, j = size - 1; i < j; i++, j--)
+	{
+		if (S[i] >= 'A' && S[i] <= 'Z' || S[i] >= 'a' && S[i] <= 'z')
+		{
+			if (S[j] >= 'A' && S[j] <= 'Z' || S[j] >= 'a' && S[j] <= 'z')
+			{
+				Swaq(S[i], S[j]);
+			}
+			else
+			{
+				while (i < j && j < size && S[j] < 'A' || S[j] > 'Z' && S[j] < 'a' || S[j] > 'z')
+				{
+					j--;
+				}
+				if (i >= j || j >= size)
+				{
+					return S;
+				}
+				Swaq(S[i], S[j]);
+			}
+		}
+		else
+		{
+			while (i < j && i < size - 1 && S[i] < 'A' || S[i] > 'Z' && S[i] < 'a' || S[i] > 'z')
+			{
+				i++;
+			}
+			if (i >= j || i >= size - 1)
+			{
+				return S;
+			}
+			if (S[j] >= 'A' && S[j] <= 'Z' || S[j] >= 'a' && S[j] <= 'z')
+			{
+				Swaq(S[i], S[j]);
+			}
+			else
+			{
+				while (i < j && j < size && S[j] < 'A' || S[j] > 'Z' && S[j] < 'a' || S[j] > 'z')
+				{
+					j--;
+				}
+				if (i >= j || j >= size)
+				{
+					return S;
+				}
+				Swaq(S[i], S[j]);
+			}
+		}
+	}
+	return S;
+}
+
+int main()
+{
+	string S = "-S2,_";
+	reverseOnlyLetters(S);
+	return 0;
+}
+
 #if 0
+//给定一个按非递减顺序排序的整数数组 A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。
+vector<int> sortedSquares(vector<int>& A)
+{
+	for (size_t i = 0; i < A.size(); i++)
+	{
+		A[i] = A[i] * A[i];
+	}
+	sort(A.begin(), A.end());
+	return A;
+}
+int main()
+{
+	vector<int> A = { -4, -1, 0, 3, 10 };
+	A = sortedSquares(A);
+	return 0;
+}
+
+bool isLongPressedName(string name, string typed) 
+{
+	if (name == typed)
+	{
+		return true;
+	}
+	else if (name.length() > typed.length())
+	{
+		return false;
+	}
+	else
+	{
+		bool flag = true;
+		string name2 = name;
+		for (int i = 0, j = 0; j < typed.length();)
+		{
+			if (name[i] == typed[j])
+			{
+				name2[i] = '#';
+				i++;
+				j++;
+			}
+			else 
+			{
+				if (name[i - 1] == typed[j])
+				{
+					j++;
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+		for (int i = 0; i < name2.length(); i++)
+		{
+			if (name2[i] != '#')
+			{
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+}
+int main()
+{
+	string name = "alex";
+	string typed = "aaleex";
+	isLongPressedName(name, typed);
+	return 0;
+}
+
+//给定一个整数数组，判断是否存在重复元素。
+bool containsDuplicate(vector<int>& nums)
+{
+	sort(nums.begin(), nums.end());
+	auto it = nums.begin();
+	while (it + 1 != nums.end() && it != nums.end())
+	{
+		if (*it == *(it + 1))
+		{
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+int main()
+{
+	vector<int> nums = { 1,9,5,7,6 };
+	containsDuplicate(nums);
+	return 0;
+}
+
+//给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+{
+	nums1.resize(m);
+	auto it1 = nums1.begin();
+	auto it2 = nums2.begin();
+	while (it2 != nums2.end())
+	{
+		while (it1 != nums1.end())
+		{
+			if (*it2 <= *it1)
+			{
+				nums1.insert(it1, *it2);
+				it1 = nums1.begin();
+				break;
+			}
+			else
+			{
+				it1++;
+			}
+		}
+		if (it1 == nums1.end())
+		{
+			nums1.push_back(*it2);
+			it1 = nums1.end();
+		}
+		it2++;
+	}
+}
+int main()
+{
+	vector<int> nums1 = { 1, 2, 3, 0, 0, 0 };
+	int m = 3;
+	vector<int> nums2 = { 2, 5, 6 };
+	int n = 3;
+	merge(nums1, m, nums2, n);
+	return 0;
+}
+
+//给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。如果不存在最后一个单词，请返回 0 。
+int lengthOfLastWord(string s)
+{
+	auto rit = s.rbegin();
+	int count = 0;
+	while (*rit == ' ')
+	{
+		s.pop_back();
+		rit = s.rbegin();
+	}
+	while (rit != s.rend() && *rit != ' ')
+	{
+		count++;
+		rit++;
+	}
+	return count;
+}
+
+int main()
+{
+	string s = "b   a    ";
+	cout << lengthOfLastWord(s) << endl;
+	return 0;
+}
+
+//判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+bool isPalindrome(int x)
+{
+	if (x < 0)
+	{
+		return false;
+	}
+	string num = to_string(x);
+	auto rit = num.rbegin();
+	auto it = num.begin();
+	while (it != num.end() && rit != num.rend())
+	{
+		if (*it != *rit)
+		{
+			return false;
+		}
+		it++;
+		rit++;
+	}
+	return true;
+}
+int main()
+{
+	int x = 12321;
+	isPalindrome(x);
+	return 0;
+}
+
+
+//赎金信
+bool canConstruct()
+{
+	string ransomNote = "aa";
+	string magazine = "ab";
+	auto it1 = ransomNote.begin();
+	while (it1 != ransomNote.end())
+	{
+		auto it2 = magazine.begin();
+		int flag = 0;
+		while (it2 != magazine.end())
+		{
+			if (*it1 == *it2)
+			{
+				magazine.erase(it2);
+				flag = 1;
+				break;
+			}
+			it2++;
+		}
+		if (flag == 0)
+		{
+			return false;
+		}
+		it1++;
+	}
+	return true;
+}
+
+int main()
+{
+	canConstruct();
+	return 0;
+}
+
+int main()
+{
+	vector<int> nums = { 1,3,5,6 };
+	int target = 7;
+
+	size_t n = 0;
+	if (target <= nums[n])
+	{
+		return 0;
+	}
+	while (nums.size() != 1 && n <= nums.size() - 1)
+	{
+		n++;
+		if (target <= nums[n])
+		{
+			return n;
+		}
+		if (n == nums.size() - 1)
+		{
+			break;
+		}
+	}
+	return nums.size();
+}
+
+int main()
+{
+	vector<int> nums = { 3,2,2,3 };
+	int val = 3;
+	auto it = nums.begin();
+	while (it != nums.end())
+	{
+		while (*it == val)
+		{
+			nums.erase(it);
+			if (nums.size() == 0)
+			{
+				return 0;
+			}
+			it = nums.begin();
+		}
+		it++;
+	}
+	return nums.size();
+}
+
+int main()
+{
+	int x = 10;
+	int y = 10;
+	x = y = ++y;
+	printf("%d %d", x, y);
+	return 0;
+}
+
+//向右移动K个单位
+int main()
+{
+	vector<int> nums = { 1,2,3,4,5,6 };
+	int k = 3;
+	while (k--)
+	{
+		nums.insert(nums.begin(), nums[nums.size() - 1]);
+		nums.pop_back();
+	}
+	return 0;
+}
+
+
+//将所有大写字母转化成小写字母
+int main()
+{
+	string str = "Hello";
+	auto it = str.begin();
+	while (it != str.end())
+	{
+		if (*it >= 'A' && *it <= 'Z')
+		{
+			*it = *it - 'A' + 'a';
+		}
+		it++;
+	}
+	cout << str << endl;
+	return 0;
+}
+
+void test()
+{
+	map<int, int> mp;
+	vector<pair<int, int>> vec;
+	int n = 10;
+	for (int i = 0; i < n; i++)
+	{
+		vec.push_back(make_pair(i, i));
+	}
+	map<int, int> mp2(vec.begin(), vec.end());
+	map<int, int> mp3(mp2.begin(), mp2.end());
+	map<int, int> cp(mp3);
+
+	for (const auto& e : mp2)
+	{
+		cout << e.first << ", " << e.second << endl;
+	}  
+}
+int main()
+{
+	test();
+	system("pause");
+	return 0;
+}
+
+class A
+{
+public:
+	int a = 10;
+	int b = 20;
+	int c = 30;
+};
+
+int main()
+{
+	shared_ptr<A> sp(new A());
+	shared_ptr<A> cp(sp);
+	shared_ptr<A> sp3(new A());
+	sp3 = sp;
+	return 0;
+}
+
+//int main()
+//{
+//	unique_ptr<a> up(new a());
+//	up->a = 20;
+//	unique_ptr<a> copy(up);
+//	unique_ptr<a> up3(new a());
+//	up3 = up;
+//	return 0;
+//}
+
+
 //因子个数
 int main() {
 	int n, k, i;
