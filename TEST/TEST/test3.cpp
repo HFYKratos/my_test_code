@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<string>
 #include<vector>
@@ -11,9 +11,225 @@
 #include<set>
 using namespace std;
 
+string addBinary(string a, string b)
+{
+	string big = b, small = a;
+	if (a.size() > b.size())
+	{
+		big = a;
+		small = b;
+	}
+	auto it = small.rbegin();
+	auto it2 = big.rbegin();
+	while (it != small.rend())
+	{
+		*it2 += *it - '0';
+		it2++;
+		it++;
+	}
+	it2 = big.rbegin();
+	int flag = 0;
+	while (it2 != big.rend())
+	{
+		while (*it2 > '1')
+		{
+			*it2 -= 2;
+			if (it2 + 1 != big.rend())
+			{
+				(*(it2 + 1))++;
+			}
+			else
+			{
+				flag = 1;
+			}
+		}
+		it2++;
+	}
+	if (flag == 1)
+	{
+		big.insert(big.begin(), '1');
+	}
+	return big;
+}
+int main()
+{
+	string a = "111", b = "111";
+	addBinary(a, b);
+	return 0;
+}
 
+#if 0
+//ç»™å®šä¸€ä¸ªæ•´æ•°æ•°ç»„ numsÂ å’Œä¸€ä¸ªç›®æ ‡å€¼ targetï¼Œè¯·ä½ åœ¨è¯¥æ•°ç»„ä¸­æ‰¾å‡ºå’Œä¸ºç›®æ ‡å€¼çš„é‚£ä¸¤ä¸ªæ•´æ•°ï¼Œå¹¶è¿”å›ä»–ä»¬çš„æ•°ç»„ä¸‹æ ‡ã€‚
+//ä½ å¯ä»¥å‡è®¾æ¯ç§è¾“å…¥åªä¼šå¯¹åº”ä¸€ä¸ªç­”æ¡ˆã€‚ä½†æ˜¯ï¼Œä½ ä¸èƒ½é‡å¤åˆ©ç”¨è¿™ä¸ªæ•°ç»„ä¸­åŒæ ·çš„å…ƒç´ ã€‚
+vector<int> twoSum(vector<int>& nums, int target)
+{
+	vector<int> num;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		for (int j = i + 1; j < nums.size(); j++)
+		{
+			if(nums[i] + nums[j] == target)
+			{
+				num = { i,j };
+				break;
+			}
+		}
+		if (num.empty() == 0)
+		{
+			break;
+		}
+	}
+	return num;
+}
+int main()
+{
+	vector<int> nums = { 11,2,15,7 };
+	int target = 9;
+	twoSum(nums, target);
+	return 0;
+}
 
-//¸ø¶¨Ò»¸ö×Ö·û´® S£¬·µ»Ø ¡°·´×ªºóµÄ¡± ×Ö·û´®£¬ÆäÖĞ²»ÊÇ×ÖÄ¸µÄ×Ö·û¶¼±£ÁôÔÚÔ­µØ£¬¶øËùÓĞ×ÖÄ¸µÄÎ»ÖÃ·¢Éú·´×ª¡£
+//ç»™å®šä¸€ä¸ªéç©ºæ•°ç»„ï¼Œè¿”å›æ­¤æ•°ç»„ä¸­ç¬¬ä¸‰å¤§çš„æ•°ã€‚å¦‚æœä¸å­˜åœ¨ï¼Œåˆ™è¿”å›æ•°ç»„ä¸­æœ€å¤§çš„æ•°ã€‚è¦æ±‚ç®—æ³•æ—¶é—´å¤æ‚åº¦å¿…é¡»æ˜¯O(n)ã€‚
+int thirdMax(vector<int>& nums)
+{
+	vector<long long> max = { INT64_MIN,INT64_MIN,INT64_MIN };
+	for (size_t i = 0; i < nums.size(); i++)
+	{
+		if (nums[i] > max[2])
+		{
+			if (nums[i] > max[1])
+			{
+				if (nums[i] > max[0])
+				{
+					max.insert(max.begin(), nums[i]);
+				}
+				else if(nums[i] == max[0])
+				{
+					continue;
+				}
+				else
+				{
+					max.insert(max.begin() + 1, nums[i]);
+				}
+			}
+			else if (nums[i] == max[1])
+			{
+				continue;
+			}
+			else
+			{
+				max.insert(max.begin() + 2, nums[i]);
+			}
+		}
+	}
+	if (max[2] == INT64_MIN)
+	{
+		return max[0];
+	}
+	else
+	{
+		return max[2];
+	}
+}
+int main()
+{
+	vector<int> nums = { 1,2 };
+	thirdMax(nums);
+	return 0;
+}
+
+//ç»™å®šä¸€ä¸ªç”±æ•´æ•°ç»„æˆçš„éç©ºæ•°ç»„æ‰€è¡¨ç¤ºçš„éè´Ÿæ•´æ•°ï¼Œåœ¨è¯¥æ•°çš„åŸºç¡€ä¸ŠåŠ ä¸€ã€‚
+//æœ€é«˜ä½æ•°å­—å­˜æ”¾åœ¨æ•°ç»„çš„é¦–ä½ï¼Œ æ•°ç»„ä¸­æ¯ä¸ªå…ƒç´ åªå­˜å‚¨å•ä¸ªæ•°å­—ã€‚
+//ä½ å¯ä»¥å‡è®¾é™¤äº†æ•´æ•° 0 ä¹‹å¤–ï¼Œè¿™ä¸ªæ•´æ•°ä¸ä¼šä»¥é›¶å¼€å¤´ã€‚
+vector<int> plusOne(vector<int>& digits)
+{
+	int flag = 0;
+	for (int i = digits.size() - 1; i >= 0; i--)
+	{
+		if (++(digits[i]) < 10)
+		{
+			flag = 0;
+			break;
+		}
+		flag = 1;
+		digits[i] = 0;
+	}
+	if (flag == 1)
+	{
+		digits.insert(digits.begin(), 1);
+	}
+	return digits;
+}
+int main()
+{
+	vector<int> digits = { 9,9 };
+	plusOne(digits);
+	return 0;
+}
+
+//ç»™å®šä¸€ä¸ªæ•´æ•°ç±»å‹çš„æ•°ç»„Â numsï¼Œè¯·ç¼–å†™ä¸€ä¸ªèƒ½å¤Ÿè¿”å›æ•°ç»„â€œä¸­å¿ƒç´¢å¼•â€çš„æ–¹æ³•ã€‚
+//æˆ‘ä»¬æ˜¯è¿™æ ·å®šä¹‰æ•°ç»„ä¸­å¿ƒç´¢å¼•çš„ï¼šæ•°ç»„ä¸­å¿ƒç´¢å¼•çš„å·¦ä¾§æ‰€æœ‰å…ƒç´ ç›¸åŠ çš„å’Œç­‰äºå³ä¾§æ‰€æœ‰å…ƒç´ ç›¸åŠ çš„å’Œã€‚
+//å¦‚æœæ•°ç»„ä¸å­˜åœ¨ä¸­å¿ƒç´¢å¼•ï¼Œé‚£ä¹ˆæˆ‘ä»¬åº”è¯¥è¿”å› - 1ã€‚å¦‚æœæ•°ç»„æœ‰å¤šä¸ªä¸­å¿ƒç´¢å¼•ï¼Œé‚£ä¹ˆæˆ‘ä»¬åº”è¯¥è¿”å›æœ€é è¿‘å·¦è¾¹çš„é‚£ä¸€ä¸ªã€‚
+int pivotIndex(vector<int>& nums)
+{
+	if (nums.size() <= 2)
+	{
+		return -1;
+	}
+	int len = nums.size() - 1;
+	for (int i = 0; i <= len; i++)
+	{
+		int left = i - 1, right = i + 1;
+		int sum1 = 0, sum2 = 0;
+		while (left >= 0)
+		{
+			sum1 += nums[left];
+			left--;
+		}
+		while (right <= len)
+		{
+			sum2 += nums[right];
+			right++;
+		}
+		if (sum1 == sum2)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+int main()
+{
+	vector<int> nums = { -1, -1, -1, 0, 1, 1 };
+	pivotIndex(nums);
+	return 0;
+}
+
+//ç»™å®šä¸€ä¸ªéè´Ÿæ•´æ•°æ•°ç»„ Aï¼Œè¿”å›ä¸€ä¸ªæ•°ç»„ï¼Œåœ¨è¯¥æ•°ç»„ä¸­ï¼Œ A çš„æ‰€æœ‰å¶æ•°å…ƒç´ ä¹‹åè·Ÿç€æ‰€æœ‰å¥‡æ•°å…ƒç´ ã€‚
+vector<int> sortArrayByParity(vector<int>& A)
+{
+	vector<int> B;
+	for (size_t i = 0; i < A.size(); i++)
+	{
+		if (A[i] % 2 == 0)
+		{
+			B.insert(B.begin(), A[i]);
+		}
+		else
+		{
+			B.insert(B.end(), A[i]);
+		}
+	}
+	return B;
+}
+int main()
+{
+	vector<int> A = { 1,3,2,4 };
+	sortArrayByParity(A);
+	return 0;
+}
+
+//ç»™å®šä¸€ä¸ªå­—ç¬¦ä¸² Sï¼Œè¿”å› â€œåè½¬åçš„â€ å­—ç¬¦ä¸²ï¼Œå…¶ä¸­ä¸æ˜¯å­—æ¯çš„å­—ç¬¦éƒ½ä¿ç•™åœ¨åŸåœ°ï¼Œè€Œæ‰€æœ‰å­—æ¯çš„ä½ç½®å‘ç”Ÿåè½¬ã€‚
 void Swaq(char& a, char& b)
 {
 	char t = a;
@@ -86,8 +302,7 @@ int main()
 	return 0;
 }
 
-#if 0
-//¸ø¶¨Ò»¸ö°´·Çµİ¼õË³ĞòÅÅĞòµÄÕûÊıÊı×é A£¬·µ»ØÃ¿¸öÊı×ÖµÄÆ½·½×é³ÉµÄĞÂÊı×é£¬ÒªÇóÒ²°´·Çµİ¼õË³ĞòÅÅĞò¡£
+//ç»™å®šä¸€ä¸ªæŒ‰éé€’å‡é¡ºåºæ’åºçš„æ•´æ•°æ•°ç»„ Aï¼Œè¿”å›æ¯ä¸ªæ•°å­—çš„å¹³æ–¹ç»„æˆçš„æ–°æ•°ç»„ï¼Œè¦æ±‚ä¹ŸæŒ‰éé€’å‡é¡ºåºæ’åºã€‚
 vector<int> sortedSquares(vector<int>& A)
 {
 	for (size_t i = 0; i < A.size(); i++)
@@ -157,7 +372,7 @@ int main()
 	return 0;
 }
 
-//¸ø¶¨Ò»¸öÕûÊıÊı×é£¬ÅĞ¶ÏÊÇ·ñ´æÔÚÖØ¸´ÔªËØ¡£
+//ç»™å®šä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼Œåˆ¤æ–­æ˜¯å¦å­˜åœ¨é‡å¤å…ƒç´ ã€‚
 bool containsDuplicate(vector<int>& nums)
 {
 	sort(nums.begin(), nums.end());
@@ -179,7 +394,7 @@ int main()
 	return 0;
 }
 
-//¸ø¶¨Á½¸öÓĞĞòÕûÊıÊı×é nums1 ºÍ nums2£¬½« nums2 ºÏ²¢µ½ nums1 ÖĞ£¬Ê¹µÃ num1 ³ÉÎªÒ»¸öÓĞĞòÊı×é¡£
+//ç»™å®šä¸¤ä¸ªæœ‰åºæ•´æ•°æ•°ç»„ nums1 å’Œ nums2ï¼Œå°† nums2 åˆå¹¶åˆ° nums1 ä¸­ï¼Œä½¿å¾— num1 æˆä¸ºä¸€ä¸ªæœ‰åºæ•°ç»„ã€‚
 void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
 {
 	nums1.resize(m);
@@ -218,7 +433,7 @@ int main()
 	return 0;
 }
 
-//¸ø¶¨Ò»¸ö½ö°üº¬´óĞ¡Ğ´×ÖÄ¸ºÍ¿Õ¸ñ ' ' µÄ×Ö·û´®£¬·µ»ØÆä×îºóÒ»¸öµ¥´ÊµÄ³¤¶È¡£Èç¹û²»´æÔÚ×îºóÒ»¸öµ¥´Ê£¬Çë·µ»Ø 0 ¡£
+//ç»™å®šä¸€ä¸ªä»…åŒ…å«å¤§å°å†™å­—æ¯å’Œç©ºæ ¼ ' ' çš„å­—ç¬¦ä¸²ï¼Œè¿”å›å…¶æœ€åä¸€ä¸ªå•è¯çš„é•¿åº¦ã€‚å¦‚æœä¸å­˜åœ¨æœ€åä¸€ä¸ªå•è¯ï¼Œè¯·è¿”å› 0 ã€‚
 int lengthOfLastWord(string s)
 {
 	auto rit = s.rbegin();
@@ -243,7 +458,7 @@ int main()
 	return 0;
 }
 
-//ÅĞ¶ÏÒ»¸öÕûÊıÊÇ·ñÊÇ»ØÎÄÊı¡£»ØÎÄÊıÊÇÖ¸ÕıĞò£¨´Ó×óÏòÓÒ£©ºÍµ¹Ğò£¨´ÓÓÒÏò×ó£©¶Á¶¼ÊÇÒ»ÑùµÄÕûÊı¡£
+//åˆ¤æ–­ä¸€ä¸ªæ•´æ•°æ˜¯å¦æ˜¯å›æ–‡æ•°ã€‚å›æ–‡æ•°æ˜¯æŒ‡æ­£åºï¼ˆä»å·¦å‘å³ï¼‰å’Œå€’åºï¼ˆä»å³å‘å·¦ï¼‰è¯»éƒ½æ˜¯ä¸€æ ·çš„æ•´æ•°ã€‚
 bool isPalindrome(int x)
 {
 	if (x < 0)
@@ -272,7 +487,7 @@ int main()
 }
 
 
-//Êê½ğĞÅ
+//èµé‡‘ä¿¡
 bool canConstruct()
 {
 	string ransomNote = "aa";
@@ -362,7 +577,7 @@ int main()
 	return 0;
 }
 
-//ÏòÓÒÒÆ¶¯K¸öµ¥Î»
+//å‘å³ç§»åŠ¨Kä¸ªå•ä½
 int main()
 {
 	vector<int> nums = { 1,2,3,4,5,6 };
@@ -376,7 +591,7 @@ int main()
 }
 
 
-//½«ËùÓĞ´óĞ´×ÖÄ¸×ª»¯³ÉĞ¡Ğ´×ÖÄ¸
+//å°†æ‰€æœ‰å¤§å†™å­—æ¯è½¬åŒ–æˆå°å†™å­—æ¯
 int main()
 {
 	string str = "Hello";
@@ -446,7 +661,7 @@ int main()
 //}
 
 
-//Òò×Ó¸öÊı
+//å› å­ä¸ªæ•°
 int main() {
 	int n, k, i;
 	while (cin >> n) {
@@ -462,7 +677,7 @@ int main() {
 	return 0;
 }
 
-//×îÄÑµÄÎÊÌâ
+//æœ€éš¾çš„é—®é¢˜
 int main()
 {
 	string str;
@@ -491,7 +706,7 @@ int main()
 	return 0;
 }
 
-//ÓĞ¼Ù±Ò
+//æœ‰å‡å¸
 int main()
 {
 	int num = 0;
@@ -512,7 +727,7 @@ int main()
 	return 0;
 }
 
-//ÇóÕıÊıÊı×éµÄ×îĞ¡²»¿É×é³ÉºÍ
+//æ±‚æ­£æ•°æ•°ç»„çš„æœ€å°ä¸å¯ç»„æˆå’Œ
 int getFirstUnFormedNum(vector<int> arr, int len) 
 {
 	int sum = 0, min = arr[0];
@@ -1215,7 +1430,7 @@ int main()
 }
 
 
-//ÕÒÁ½¸öÊıµÄ×î´ó¹«Ô¼Êı
+//æ‰¾ä¸¤ä¸ªæ•°çš„æœ€å¤§å…¬çº¦æ•°
 int FindYs(int s, int b)
 {
 	int sum = 1;
