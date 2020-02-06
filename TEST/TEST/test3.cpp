@@ -11,6 +11,175 @@
 #include<set>
 using namespace std;
 
+#if 0
+//给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+//你的算法时间复杂度必须是 O(log n) 级别。
+vector<int> searchRange(vector<int>& nums, int target)
+{
+	int right = nums.size() - 1, left = 0, mid = (right + left) / 2;
+	int flag = 1;
+	vector<int> ret = { -1,-1 };
+	if (nums.size() < 2)
+	{
+		if (nums.size() == 0)
+		{
+			return ret;
+		}
+		else
+		{
+			if (nums[mid] == target)
+			{
+				ret = { mid,mid };
+				return ret;
+			}
+			return ret;
+		}
+	}
+	while (left < right)
+	{
+		if (nums[mid] == target)
+		{
+			int l = mid, r = mid;
+			while (l >= 0 && nums[l] == target)
+			{
+				l--;
+			}
+			while (r <= nums.size() - 1 && nums[r] == target)
+			{
+				r++;
+			}
+			ret = { l + 1,r - 1 };
+			return ret;
+		}
+		else if(nums[mid] > target)
+		{
+			right = mid;
+			mid = (right + left) / 2;
+		}
+		else
+		{
+			left = mid;
+			mid = (right + left) / 2;
+		}
+		if (mid == left || mid == right)
+		{
+			if (flag == 0)
+			{
+				break;
+			}
+			if (nums[left] == target)
+			{
+				mid = left;
+			}
+			if (nums[right] == target)
+			{
+				mid = right;
+			}
+			flag = 0;
+		}
+	}
+	return ret;
+}
+int main()
+{
+	vector<int> nums = { 1,1,1,1,4 };
+	int target = 4;
+	searchRange(nums, target);
+	return 0;
+}
+
+//实现一个 atoi 函数，使其能将字符串转换成整数。
+int myAtoi(string str)
+{
+	auto it = str.begin();
+	vector<int> num;
+	int flag = 0;	
+	while (it != str.end())
+	{
+		if (*it == ' ')
+		{
+			it++;
+			continue;
+		}
+		else if (*it >= '0' && *it <= '9')
+		{
+			while (it != str.end() && *it >= '0' && *it <= '9')
+			{
+				num.push_back(*it - '0');
+				it++;
+			}
+			break;
+		}
+		else if (*it == '+' || *it == '-')
+		{
+			if (*(it + 1) < '0' || *(it + 1) > '9')
+			{
+				return 0;
+			}
+			if (*it == '-')
+			{
+				flag = 1;
+			}
+		}
+		else
+		{
+			break;
+		}
+		it++;
+	}
+	if (num.size() == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		int ret = 0;
+		int size = num.size() - 1;
+		for (int i = 0; i <= size; i++)
+		{
+			ret += pow(10, size - i) * num[i];
+			if (ret >= INT32_MAX || ret <= INT32_MIN)
+			{
+				if (flag == 1)
+				{
+					if (ret == INT32_MAX)
+					{
+						return -INT32_MAX;
+					}
+					return INT32_MIN;
+				}
+				return INT32_MAX;
+			}
+		}
+		if (flag == 1)
+		{
+			return -ret;
+		}
+		return ret;
+	}
+}
+int main()
+{
+	string str = "-91283472332";
+	myAtoi(str);
+	return 0;
+}
+
+struct HAR
+{
+	int x,y; 
+	struct HAR* p; 
+}
+h[2];
+void main()
+{
+	h[0].x = 1; h[0].y = 2;
+	h[1].x = 3; h[1].y = 4;
+	h[0].p = &h[1]; h[1].p = h;
+	printf("%d,%d \n", (h[0].p)->x, (h[1].p)->y);
+}
+
+//给定两个二进制字符串，返回他们的和（用二进制表示）。输入为非空字符串且只包含数字 1 和 0
 string addBinary(string a, string b)
 {
 	string big = b, small = a;
@@ -58,7 +227,6 @@ int main()
 	return 0;
 }
 
-#if 0
 //给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
 //你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
 vector<int> twoSum(vector<int>& nums, int target)
