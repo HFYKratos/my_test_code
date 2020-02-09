@@ -11,7 +11,242 @@
 #include<set>
 using namespace std;
 
+
+
 #if 0
+//给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+struct TreeNode
+{
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode(int x = 0) :
+		val(x), left(NULL), right(NULL) {}
+};
+void Find(TreeNode* root, vector<int>& res, int k)
+{
+	if (root != NULL)
+	{
+		if (k >= res.size())
+		{
+			res.push_back(root->val);
+		}
+		Find(root->right, res, k + 1);
+		Find(root->left, res, k + 1);
+	}
+}
+vector<int> rightSideView(TreeNode* root) 
+{
+	vector<int> res;
+	Find(root, res, 0);
+	return res;
+}
+int main()
+{
+	TreeNode* root = new TreeNode(1);
+	root->left = new TreeNode(2);
+	root->right = new TreeNode(3);
+	root->left->left = new TreeNode(4);
+	//root->right->right = new TreeNode(4);
+	rightSideView(root);
+	return 0;
+}
+
+//给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+//说明：解集不能包含重复的子集。
+void helper(vector<vector<int> >& res, vector<int> tmp, vector<int>& nums, int level)
+{
+	if (tmp.size() <= nums.size())
+	{
+		res.push_back(tmp);
+	}
+	for (int i = level; i < nums.size(); i++) {
+		tmp.push_back(nums[i]);
+		helper(res, tmp, nums, i + 1);
+		tmp.pop_back();
+	}
+}
+vector<vector<int>> subsets(vector<int>& nums) 
+{
+	vector<vector<int>> res;
+	vector<int> tmp;
+	helper(res, tmp, nums, 0);
+	return res;
+}
+int main()
+{
+	vector<int> num = { 1, 2, 3 };
+	subsets(num);
+	return 0;
+}
+
+//根据逆波兰表示法，求表达式的值。
+//有效的运算符包括 + , -, *, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+int evalRPN(vector<string>& tokens)
+{
+	for (size_t i = 0; i < tokens.size(); i++)
+	{
+		if (tokens[i] == "+")
+		{
+			int num = stoi(tokens[i - 2]) + stoi(tokens[i - 1]);
+			tokens.erase(tokens.begin() + i - 2, tokens.begin() + i + 1);
+			tokens.insert(tokens.begin() + (i - 2), to_string(num));
+			i -= 2;
+			continue;
+		}
+		if (tokens[i] == "-")
+		{
+			int num = stoi(tokens[i - 2]) - stoi(tokens[i - 1]);
+			tokens.erase(tokens.begin() + i - 2, tokens.begin() + i + 1);
+			tokens.insert(tokens.begin() + (i - 2), to_string(num));
+			i -= 2;
+			continue;
+		}
+		if (tokens[i] == "*")
+		{
+			int num = stoi(tokens[i - 2]) * stoi(tokens[i - 1]);
+			tokens.erase(tokens.begin() + i - 2, tokens.begin() + i + 1);
+			tokens.insert(tokens.begin() + (i - 2), to_string(num));
+			i -= 2;
+			continue;
+		}
+		if (tokens[i] == "/")
+		{
+			int num = stoi(tokens[i - 2]) / stoi(tokens[i - 1]);
+			tokens.erase(tokens.begin() + i - 2, tokens.begin() + i + 1);
+			tokens.insert(tokens.begin() + (i - 2), to_string(num));
+			i -= 2;
+			continue;
+		}
+	}
+	return stoi(tokens[0]);
+}
+int main()
+{
+	vector<string> tokens = { "10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+" };
+	evalRPN(tokens);
+	return 0;
+}
+
+//给定一个整数数组，你需要寻找一个连续的子数组，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+//你找到的子数组应是最短的，请输出它的长度。
+int findUnsortedSubarray(vector<int>& nums)
+{
+	vector<int> tmp = nums;
+	sort(nums.begin(), nums.end());
+	size_t i = 0, j = nums.size() - 1;
+	for (; i < nums.size() - 1; i++)
+	{
+		if (nums[i] != tmp[i])
+		{
+			break;
+		}
+	}
+	for (; j > i; j--)
+	{
+		if (nums[j] != tmp[j])
+		{
+			break;
+		}
+	}
+	if (i == j)
+	{
+		return 0;
+	}
+	return j - i + 1;
+}
+int main()
+{
+	vector<int> nums = { 2, 6, 4, 8, 10, 9, 15 };
+	findUnsortedSubarray(nums);
+	return 0;
+}
+
+int compress(vector<char>& chars)
+{
+	for (size_t i = 0; i < chars.size() - 1; i++)
+	{
+		char ch = chars[i];
+		int j = 1;
+		while (i + 1 != chars.size() && ch == chars[i + 1])
+		{
+			j++;
+			chars.erase(chars.begin() + i + 1);
+		}
+		if (j > 1)
+		{
+			while (j != 0)
+			{
+				int t = j % 10;
+				j /= 10;
+				chars.insert(chars.begin() + i + 1, '0' + t);
+			}
+			i++;
+		}
+
+	}
+	return chars.size();
+}
+int main()
+{
+	vector<char> chars = { 'a','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b' };
+	compress(chars);
+	return 0;
+}
+
+//给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+bool isPalindrome(string s)
+{
+	auto it = s.begin();
+	auto rit = s.rbegin();
+	while (it != s.end() && rit != s.rend())
+	{
+		if (*it >= 'a' && *it <= 'z' || *it >= 'A' && *it <= 'Z' || *it >= '0'  && *it <= '9')
+		{
+			if (*it >= 'A' && *it <= 'Z')
+			{
+				*it += ' ';
+			}
+			if (*rit >= 'a' && *rit <= 'z' || *rit >= 'A' && *rit <= 'Z' || *rit >= '0' && *rit <= '9')
+			{
+				if (*it == *rit || *it == *rit + ' ')
+				{
+					s.erase(it);
+					it = s.begin();
+					if (s.size() == 1 || s.size() == 0)
+					{
+						return true;
+					}
+					s.pop_back();
+					rit = s.rbegin();
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				s.pop_back();
+				rit = s.rbegin();
+			}
+		}
+		else
+		{
+			s.erase(it);
+			it = s.begin();
+			rit = s.rbegin();
+		}
+	}
+	return true;
+}
+int main()
+{
+	string s = "!D2mH2?.0:xe`7zkU:Ky`2r'CA.!w'ZI' ARhID9\"J!\"k1Kk`;!l7 \"sF2 3 'B`!efSlJ'0,4,zgy:2L ..PbTCSG,5m:!!:! \"YZ6:X'. XUIg :'`Mo SxGfSW!HAKE0Kh?!k\";2W0! h837y?Y?6k. 9:K\"!?!?!\"K:9 .k6?Y?y738h !0W2;\"k!?hK0EKAH!WSfGxS oM`': gIUX .'X:6ZY\" !:!!:m5,GSCTbP.. L2:ygz,4,0'JlSfe!`B' 3 2Fs\" 7l!;`kK1k\"!J\"9DIhRA 'IZ'w!.AC'r2`yK:Ukz7`ex:0.?2Hm2D!";
+	isPalindrome(s);
+	return 0;
+}
+
 //给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 //你的算法时间复杂度必须是 O(log n) 级别。
 vector<int> searchRange(vector<int>& nums, int target)
