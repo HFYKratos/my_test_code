@@ -9,11 +9,106 @@
 #include<memory>
 #include<map>
 #include<set>
+#include<unordered_map>
+#include<unordered_set>
 using namespace std;
 
+int main()
+{
 
+	return 0;
+}
 
 #if 0
+//给定两个数组，编写一个函数来计算它们的交集。
+vector<int> intersection(vector<int>& nums1, vector<int>& nums2)
+{
+	unordered_set<int> ump1;
+	unordered_set<int> ump2;
+	for (const auto& a : nums1)
+	{
+		ump1.insert(a);
+	}
+	for (const auto& b : nums2)
+	{
+		ump2.insert(b);
+	}
+	vector<int> res;
+	for (const auto& e : ump1)
+	{
+		if (ump2.count(e))
+		{
+			res.push_back(e);
+		}
+	}
+	return res;
+}
+int main()
+{
+	vector<int> nums1 = { 1,2,2,1 };
+	vector<int> nums2 = { 2,2 };
+	intersection(nums1, nums2);
+	return 0;
+}
+
+//在大小为 2N 的数组 A 中有 N + 1 个不同的元素，其中有一个元素重复了 N 次。
+//返回重复了 N 次的那个元素。
+int repeatedNTimes(vector<int>& A)
+{
+	unordered_map<int, int> um;
+	int res = 0;
+	for (const auto e : A)
+	{
+		++um[e];
+	}
+	for (const auto i : um)
+	{
+		if (i.second == A.size() / 2)
+		{
+			res = i.first;
+		}
+	}
+	return res;
+}
+int main()
+{
+	vector<int> A = { 1,2,3,3 };
+	repeatedNTimes(A);
+	return 0;
+}
+
+//给一非空的单词列表，返回前 k 个出现次数最多的单词。
+//返回的答案应该按单词出现频率由高到低排序。如果不同的单词有相同出现频率，按字母顺序排序。
+vector<string> topKFrequent(vector<string>& words, int k)
+{
+	map<string, int> mp;
+	for (const auto i : words)
+	{
+		++mp[i];
+	}
+	multimap<int, string, greater<int>> mtp;
+	for (const auto e : mp)
+	{
+		mtp.insert(make_pair(e.second, e.first));
+	}
+	vector<string> res;
+	for (const auto a : mtp)
+	{
+		res.push_back(a.second);
+		if (--k == 0)
+		{
+			break;
+		}
+	}
+	return res;
+}
+int main()
+{
+	vector<string> words = { "i", "love", "leetcode", "i", "love", "coding" };
+	topKFrequent(words, 4);
+	return 0;
+}
+
 //给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
 struct TreeNode
 {
