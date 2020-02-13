@@ -13,13 +13,58 @@
 #include<unordered_set>
 using namespace std;
 
+#if 0
+//连续最大和
 int main()
 {
-
+	int a = 0, cur = 0, max = INT32_MIN;
+	cin >> a;
+	vector<int> nums;
+	nums.resize(a);
+	for (int i = 0; i < a; i++)
+	{
+		cin >> nums[i];
+		cur += nums[i];
+		if (max < cur)
+		{
+			max = cur;
+		}
+		if (cur < 0)
+		{
+			cur = 0;
+		}
+	}
+	cout << max;
 	return 0;
 }
 
-#if 0
+//删除公共字符
+int main()
+{
+	string strs, d;
+	while (getline(cin, strs))
+	{
+		cin >> d;
+		unordered_set<char> del;
+		for (const auto& e : d)
+		{
+			del.insert(e);
+		}
+		auto it = strs.begin();
+		while (it != strs.end())
+		{
+			while (it != strs.end() && del.find(*it) != del.end())
+			{
+				strs.erase(it);
+				//it = strs.begin();
+			}
+			it++;
+		}
+		cout << strs;
+	}
+	return 0;
+}
+
 //给定两个数组，编写一个函数来计算它们的交集。
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2)
 {
