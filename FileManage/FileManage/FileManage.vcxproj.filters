@@ -18,12 +18,24 @@
     <ClInclude Include="md5.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FileManage.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="file.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

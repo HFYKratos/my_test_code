@@ -138,9 +138,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="file.hpp" />
+    <ClInclude Include="FileManage.hpp" />
     <ClInclude Include="md5.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="file.cpp" />
+    <ClCompile Include="FileManage.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
