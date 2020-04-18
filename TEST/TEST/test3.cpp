@@ -13,6 +13,181 @@
 #include<unordered_set>
 using namespace std;
 
+unsigned long long fib(int n)
+{
+	int result, pre_result, next_older_result;
+	result = pre_result = 1;
+	while (n > 2)
+	{
+		n -= 1;
+		next_older_result = pre_result;
+		pre_result = result;
+		result = pre_result + next_older_result;
+	}
+	if (n == 0)
+	{
+		return 0;
+	}
+	return result;
+}
+int main()
+{
+	int from, to;
+	while (cin >> from >> to)
+	{
+		unsigned long long sum = fib(from);
+		while (from != to)
+		{
+			from++;
+			sum += fib(from);
+		}
+		cout << sum << endl;
+	}
+	return 0;
+}
+
+#if 0
+//剪花布条
+int main()
+{
+	string s, t;
+	while (cin >> s >> t)
+	{
+		auto it = s.begin();
+		int count = 0, flag = 0;
+		while (it != s.end())
+		{
+			auto it2 = t.begin();
+			flag = 0;
+			while (*it == *it2)
+			{
+				flag = 1;
+				it++;
+				it2++;
+				if (it2 == t.end())
+				{
+					count++;
+					break;
+				}
+
+			}
+			if (flag == 0)
+			{
+				it++;
+			}
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
+
+//因数分解
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		printf("%d = ", n);
+		int i = 0;
+		for (i = 2; i <= sqrt(n); i++)
+		{
+			while (n != i)
+			{
+				if (n % i == 0)
+				{
+					printf("%d * ", i);
+					n = n / i;
+				}
+				else 
+					break;
+			}
+		}
+		printf("%d\n", n); 
+	}
+	return 0;
+}
+
+//美国日期
+int getDay(int year,int month, int day)
+{
+	if (month < 3)
+	{
+		year -= 1;
+		month += 12;
+	}
+	int c = int(year / 100), y = year - 100 * c;
+	int w = int(c / 4) - 2 * c + y + int(y / 4) + (26 * (month + 1) / 10) + day - 1;
+	w = (w % 7 + 7) % 7;
+	return w;
+}
+int main()
+{
+	int year = 0;
+	while (cin >> year)
+	{
+		if (year < 2000 && year > 9999)
+		{
+			continue;
+		}
+		cout << year << "-01-01" << endl;
+
+		//1月的第三个星期一
+		for (size_t i = 1;; i++)
+		{
+			if (getDay(year, 1, i) == 1)
+			{
+				cout << year << "-01-" << i + 14 << endl;
+				break;
+			}
+		}
+		//2月的第三个星期一
+		for (size_t i = 1;; i++)
+		{
+			if (getDay(year, 2, i) == 1)
+			{
+				cout << year << "-02-" << i + 14 << endl;
+				break;
+			}
+		}
+
+		//5月的最后一个星期一
+		for (size_t i = 31;; i--)
+		{
+			if (getDay(year, 5, i) == 1)
+			{
+				cout << year << "-05-" << i << endl;
+				break;
+			}
+		}
+
+		cout << year << "-07-04" << endl;
+
+		//9月的第一个星期一
+		for (size_t i = 1;; i++)
+		{
+			if (getDay(year, 9, i) == 1)
+			{
+				cout << year << "-09-0" << i << endl;
+				break;
+			}
+		}
+
+		//11月的第四个星期四
+		for (size_t i = 1;; i++)
+		{
+			if (getDay(year, 11, i) == 4)
+			{
+				cout << year << "-11-" << i + 21 << endl;
+				break;
+			}
+		}
+
+		cout << year << "-12-25" << endl;
+		cout << endl;
+	}
+	return 0;
+}
+
 //删除公共字符
 int main()
 {
@@ -39,7 +214,7 @@ int main()
 	}
 	return 0;
 }
-#if 0
+
 //连续最大和
 int main()
 {
@@ -66,7 +241,7 @@ int main()
 
 
 
-//给定两个数组，编写一个函数来计算它们的交集。
+//给定两个数组,编写一个函数来计算它们的交集。
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2)
 {
 	unordered_set<int> ump1;
@@ -97,7 +272,7 @@ int main()
 	return 0;
 }
 
-//在大小为 2N 的数组 A 中有 N + 1 个不同的元素，其中有一个元素重复了 N 次。
+//在大小为 2N 的数组 A 中有 N + 1 个不同的元素,其中有一个元素重复了 N 次。
 //返回重复了 N 次的那个元素。
 int repeatedNTimes(vector<int>& A)
 {
@@ -123,8 +298,8 @@ int main()
 	return 0;
 }
 
-//给一非空的单词列表，返回前 k 个出现次数最多的单词。
-//返回的答案应该按单词出现频率由高到低排序。如果不同的单词有相同出现频率，按字母顺序排序。
+//给一非空的单词列表,返回前 k 个出现次数最多的单词。
+//返回的答案应该按单词出现频率由高到低排序。如果不同的单词有相同出现频率,按字母顺序排序。
 vector<string> topKFrequent(vector<string>& words, int k)
 {
 	map<string, int> mp;
@@ -155,7 +330,7 @@ int main()
 	return 0;
 }
 
-//给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+//给定一棵二叉树,想象自己站在它的右侧,按照从顶部到底部的顺序,返回从右侧所能看到的节点值。
 struct TreeNode
 {
 	int val;
@@ -193,7 +368,7 @@ int main()
 	return 0;
 }
 
-//给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+//给定一组不含重复元素的整数数组 nums,返回该数组所有可能的子集（幂集)。
 //说明：解集不能包含重复的子集。
 void helper(vector<vector<int> >& res, vector<int> tmp, vector<int>& nums, int level)
 {
@@ -221,8 +396,8 @@ int main()
 	return 0;
 }
 
-//根据逆波兰表示法，求表达式的值。
-//有效的运算符包括 + , -, *, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+//根据逆波兰表示法,求表达式的值。
+//有效的运算符包括 + , -, *, / 。每个运算对象可以是整数,也可以是另一个逆波兰表达式。
 int evalRPN(vector<string>& tokens)
 {
 	for (size_t i = 0; i < tokens.size(); i++)
@@ -269,8 +444,8 @@ int main()
 	return 0;
 }
 
-//给定一个整数数组，你需要寻找一个连续的子数组，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
-//你找到的子数组应是最短的，请输出它的长度。
+//给定一个整数数组,你需要寻找一个连续的子数组,如果对这个子数组进行升序排序,那么整个数组都会变为升序排序。
+//你找到的子数组应是最短的,请输出它的长度。
 int findUnsortedSubarray(vector<int>& nums)
 {
 	vector<int> tmp = nums;
@@ -335,7 +510,7 @@ int main()
 	return 0;
 }
 
-//给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+//给定一个字符串,验证它是否是回文串,只考虑字母和数字字符,可以忽略字母的大小写。
 bool isPalindrome(string s)
 {
 	auto it = s.begin();
@@ -388,7 +563,7 @@ int main()
 	return 0;
 }
 
-//给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+//给定一个按照升序排列的整数数组 nums,和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 //你的算法时间复杂度必须是 O(log n) 级别。
 vector<int> searchRange(vector<int>& nums, int target)
 {
@@ -464,7 +639,7 @@ int main()
 	return 0;
 }
 
-//实现一个 atoi 函数，使其能将字符串转换成整数。
+//实现一个 atoi 函数,使其能将字符串转换成整数。
 int myAtoi(string str)
 {
 	auto it = str.begin();
@@ -555,7 +730,7 @@ void main()
 	printf("%d,%d \n", (h[0].p)->x, (h[1].p)->y);
 }
 
-//给定两个二进制字符串，返回他们的和（用二进制表示）。输入为非空字符串且只包含数字 1 和 0
+//给定两个二进制字符串,返回他们的和（用二进制表示)。输入为非空字符串且只包含数字 1 和 0
 string addBinary(string a, string b)
 {
 	string big = b, small = a;
@@ -603,8 +778,8 @@ int main()
 	return 0;
 }
 
-//给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
-//你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+//给定一个整数数组 nums 和一个目标值 target,请你在该数组中找出和为目标值的那两个整数,并返回他们的数组下标。
+//你可以假设每种输入只会对应一个答案。但是,你不能重复利用这个数组中同样的元素。
 vector<int> twoSum(vector<int>& nums, int target)
 {
 	vector<int> num;
@@ -633,7 +808,7 @@ int main()
 	return 0;
 }
 
-//给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
+//给定一个非空数组,返回此数组中第三大的数。如果不存在,则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
 int thirdMax(vector<int>& nums)
 {
 	vector<long long> max = { INT64_MIN,INT64_MIN,INT64_MIN };
@@ -682,9 +857,9 @@ int main()
 	return 0;
 }
 
-//给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
-//最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
-//你可以假设除了整数 0 之外，这个整数不会以零开头。
+//给定一个由整数组成的非空数组所表示的非负整数,在该数的基础上加一。
+//最高位数字存放在数组的首位, 数组中每个元素只存储单个数字。
+//你可以假设除了整数 0 之外,这个整数不会以零开头。
 vector<int> plusOne(vector<int>& digits)
 {
 	int flag = 0;
@@ -711,9 +886,9 @@ int main()
 	return 0;
 }
 
-//给定一个整数类型的数组 nums，请编写一个能够返回数组“中心索引”的方法。
+//给定一个整数类型的数组 nums,请编写一个能够返回数组“中心索引”的方法。
 //我们是这样定义数组中心索引的：数组中心索引的左侧所有元素相加的和等于右侧所有元素相加的和。
-//如果数组不存在中心索引，那么我们应该返回 - 1。如果数组有多个中心索引，那么我们应该返回最靠近左边的那一个。
+//如果数组不存在中心索引,那么我们应该返回 - 1。如果数组有多个中心索引,那么我们应该返回最靠近左边的那一个。
 int pivotIndex(vector<int>& nums)
 {
 	if (nums.size() <= 2)
@@ -749,7 +924,7 @@ int main()
 	return 0;
 }
 
-//给定一个非负整数数组 A，返回一个数组，在该数组中， A 的所有偶数元素之后跟着所有奇数元素。
+//给定一个非负整数数组 A,返回一个数组,在该数组中, A 的所有偶数元素之后跟着所有奇数元素。
 vector<int> sortArrayByParity(vector<int>& A)
 {
 	vector<int> B;
@@ -773,7 +948,7 @@ int main()
 	return 0;
 }
 
-//给定一个字符串 S，返回 “反转后的” 字符串，其中不是字母的字符都保留在原地，而所有字母的位置发生反转。
+//给定一个字符串 S,返回 “反转后的” 字符串,其中不是字母的字符都保留在原地,而所有字母的位置发生反转。
 void Swaq(char& a, char& b)
 {
 	char t = a;
@@ -846,7 +1021,7 @@ int main()
 	return 0;
 }
 
-//给定一个按非递减顺序排序的整数数组 A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。
+//给定一个按非递减顺序排序的整数数组 A,返回每个数字的平方组成的新数组,要求也按非递减顺序排序。
 vector<int> sortedSquares(vector<int>& A)
 {
 	for (size_t i = 0; i < A.size(); i++)
@@ -916,7 +1091,7 @@ int main()
 	return 0;
 }
 
-//给定一个整数数组，判断是否存在重复元素。
+//给定一个整数数组,判断是否存在重复元素。
 bool containsDuplicate(vector<int>& nums)
 {
 	sort(nums.begin(), nums.end());
@@ -938,7 +1113,7 @@ int main()
 	return 0;
 }
 
-//给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
+//给定两个有序整数数组 nums1 和 nums2,将 nums2 合并到 nums1 中,使得 num1 成为一个有序数组。
 void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
 {
 	nums1.resize(m);
@@ -977,7 +1152,7 @@ int main()
 	return 0;
 }
 
-//给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。如果不存在最后一个单词，请返回 0 。
+//给定一个仅包含大小写字母和空格 ' ' 的字符串,返回其最后一个单词的长度。如果不存在最后一个单词,请返回 0 。
 int lengthOfLastWord(string s)
 {
 	auto rit = s.rbegin();
@@ -1002,7 +1177,7 @@ int main()
 	return 0;
 }
 
-//判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+//判断一个整数是否是回文数。回文数是指正序（从左向右)和倒序（从右向左)读都是一样的整数。
 bool isPalindrome(int x)
 {
 	if (x < 0)
